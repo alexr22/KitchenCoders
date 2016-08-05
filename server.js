@@ -10,16 +10,51 @@ var express = require('express');
 var bodyParser = require('body-parser');
 // import Node File System module method-override - lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 var methodOverride = require('method-override');
-var Recipes = require('./models')['Recipes'];
+var models = require('./models');
+// PREPARE OUR TABLES in MySQL)
+/// extract our sequelize connection from the models object, to avoid confusion
+var seqConnection = models.sequelize;
 
 
-// add recipes model and sync it
-// synching the model will create a matching table in our MySQL db if it doesn't already exist.
-Recipes.sync()  // create the recipes table
+// PREPARE OUR TABLES
+// =======================================================================
+
+
+// We run this query so that we can drop our tables even though they have foreign keys
+seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
+
+// reach into our models object, and create each table based on the associated model.
+// note: force:true drops the table if it already exists
 .then(function(){
-	Recipes.create(
-		{title: 'Fried Rice'})
+	return seqConnection.sync({force:true})
 })
+
+.then(function(){
+	return models.Ingredient.bulkCreate([
+	{name: 'Turkey', category: 'Meat'},
+	{name: 'Wheat Bread', category: 'Bread'},
+	{name:'Lettuce', category: 'Vegetable'},
+	{name: 'Tomatoes', category: 'Vegetable'},
+	{name: 'Mustard', category: 'Condiment'},
+	{name: 'Mayo', category: 'Condiment'}
+	])
+
+})
+
+.then(function(){
+	return models.Recipe.create(
+		{title: 'Turkey Sandwich',
+		 instructions: 'Take out two pieces of Bread. Spread mayo on one slice and mustard on the other. Add a layer of turkey, cheese, tomatoes, and lettuce.',
+		 cuisine: 'Miscellaneous',
+		 Ingredient:{
+		 	name: 'Turkey'
+		 	}
+		},
+		{
+			include: [models.Ingredient]
+		})
+})
+
 
 // create an instance of express by running the express function
 

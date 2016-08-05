@@ -5,24 +5,24 @@
 //
 var express = require('express');
 var router = express.Router();
-var Recipes = require('../models')["Recipes"];
+var Recipes = require('../models')["Recipe"];
 
 
 // route defined for the root of the app
 // GET method redirects user to /recipes URI
 router.get('/', function (req, res) {
-	res.redirect('/recipes');
+	res.redirect('/recipe');
 });
 
 // route defined for the /recipes URI
 // GET method - selectAll callback function
-router.get('/recipes', function (req, res) {
+router.get('/recipe', function (req, res) {
 	Recipes.findAll()
-	.then (function(recipes){
-		console.log(JSON.stringify(recipes));
+	.then (function(recipe){
+		console.log(JSON.stringify(recipe));
 
 
-		var hbsObject = {recipes};
+		var hbsObject = {recipe};
 		console.log(hbsObject);
 		res.render('index', hbsObject);
 	});

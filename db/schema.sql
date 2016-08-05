@@ -3,16 +3,31 @@
 ### THE KITCHEN CODERS
 ### Schema
 
-CREATE DATABASE kitchencodersDB;
-USE kitchencodersDB;
+CREATE DATABASE kitchenCodersDB;
 
-CREATE TABLE recipes
+USE kitchenCodersDB;
+CREATE TABLE Recipe
 (
-	id int NOT NULL AUTO_INCREMENT,
-	routeName varchar(255),
-	title varchar(255) NOT NULL,
-	ingredients varchar(255) NOT NULL,
-	instructions varchar(255) NOT NULL,
-	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY (id)
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Name varchar(25),
+	Instructions varchar(500) NOT NULL,
+    Cuisine varchar(40) NOT NULL
 );
+
+CREATE TABLE Ingredient
+(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Name varchar(50),
+	Category varchar(40)
+);
+
+CREATE TABLE RecipeIngredient
+(
+	recipe_id INT NOT NULL,
+	ingredient_id INT NOT NULL,
+	CONSTRAINT fk_recipe FOREIGN KEY(recipe_id) REFERENCES Recipe(id),
+    CONSTRAINT fk_ingredient FOREIGN KEY(ingredient_id) REFERENCES Ingredient(id)
+);
+
+###Run this to create your tables of recipes and ingredients.  The last table (RecipeIngredient) is used to combine everything.
+
