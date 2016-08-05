@@ -10,16 +10,18 @@ var express = require('express');
 var bodyParser = require('body-parser');
 // import Node File System module method-override - lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 var methodOverride = require('method-override');
-// create an instance of express by running the express function
-
-
 var Recipes = require('./models')['Recipes'];
+
+
+// add recipes model and sync it
+// synching the model will create a matching table in our MySQL db if it doesn't already exist.
 Recipes.sync()  // create the recipes table
 .then(function(){
 	Recipes.create(
 		{title: 'Fried Rice'})
 })
 
+// create an instance of express by running the express function
 
 var app = express();
 
@@ -56,7 +58,7 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 // local dependency - routes = express.router for all routes
-var routes = require('./controllers/kitchen_controller.js');
+var routes = require('./routes/r_index.js');
 // bind routes to root (WHY IS THIS NEEDED IF WE'VE REQUIRED THE CONTROLLER.JS FILE?)
 app.use('/', routes);
 
