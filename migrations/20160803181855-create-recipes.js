@@ -11,7 +11,7 @@ module.exports = {
       routeName: {
         type: Sequelize.STRING
       },
-      name: {
+      title: {
         type: Sequelize.STRING
       },
       instructions: {
@@ -21,11 +21,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });

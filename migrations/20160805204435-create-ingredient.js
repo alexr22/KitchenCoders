@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Ingredients', {
+    return queryInterface.createTable('Ingredient', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,17 +14,20 @@ module.exports = {
       category: {
         type: Sequelize.STRING
       },
+      inPantry: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Ingredients');
+    return queryInterface.dropTable('Ingredient');
   }
 };

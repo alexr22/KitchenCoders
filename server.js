@@ -11,6 +11,8 @@ var bodyParser = require('body-parser');
 // import Node File System module method-override - lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 var methodOverride = require('method-override');
 var models = require('./models');
+
+
 // PREPARE OUR TABLES in MySQL)
 /// extract our sequelize connection from the models object, to avoid confusion
 var seqConnection = models.sequelize;
@@ -26,33 +28,22 @@ seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 // reach into our models object, and create each table based on the associated model.
 // note: force:true drops the table if it already exists
 .then(function(){
-	return seqConnection.sync({force:true})
+	return seqConnection.sync()
 })
 
-.then(function(){
-	return models.Ingredient.bulkCreate([
-	{name: 'Turkey', category: 'Meat'},
-	{name: 'Wheat Bread', category: 'Bread'},
-	{name:'Lettuce', category: 'Vegetable'},
-	{name: 'Tomatoes', category: 'Vegetable'},
-	{name: 'Mustard', category: 'Condiment'},
-	{name: 'Mayo', category: 'Condiment'}
-	])
-
-})
 
 .then(function(){
 	return models.Recipe.create(
 		{title: 'Turkey Sandwich',
 		 instructions: 'Take out two pieces of Bread. Spread mayo on one slice and mustard on the other. Add a layer of turkey, cheese, tomatoes, and lettuce.',
-		 cuisine: 'Miscellaneous',
-		 Ingredient:{
-		 	name: 'Turkey'
-		 	}
-		},
-		{
-			include: [models.Ingredient]
+		 cuisine: 'Miscellaneous'
 		})
+	.then(function(recipe){
+    return models.Ingredient.findAll({where: {name: ['Lettuce','Turkey','Tomatoes']}})
+    	.then(function(ingredients){recipe.addIngredients(ingredients);
+    	})
+	})
+
 })
 
 
