@@ -8,6 +8,10 @@
 var express = require('express');
 // import Node File System module body-parser - body parsing middleware.  It parses incoming request bodies in a middleware before your handlers
 var bodyParser = require('body-parser');
+
+// import Node File System module path - provides utilities for working with file and directory paths
+var path = require('path');
+
 // import Node File System module method-override - lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 var methodOverride = require('method-override');
 var models = require('./models');
@@ -58,11 +62,16 @@ var app = express();
 // The process.cwd method return the current working directory of the node.js process
 app.use(express.static(process.cwd() + '/public'));
 
-// returns middleware that parses URL encoded bodies
-//
-app.use(bodyParser.urlencoded({
-	extended: false
-}));
+// BodyParser makes it easy for our server to interpret data sent to it.
+
+app.use(bodyParser.json());  // middleware that only parses JSON
+app.use(bodyParser.urlencoded({extended: false})); // middleware that only parses urlencoded bodies.
+     // extended set true so parsing with qs library.  Allows for rich objects and arrays to be
+     // encoded into the URL-encoded format.
+app.use(bodyParser.text());  // middleware that parses all bodies as string
+app.use(bodyParser.json({type:'application/vnd.api+json'})); // the type option is used to determine
+
+
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));
 
@@ -84,9 +93,12 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 // local dependency - routes = express.router for all routes
-var routes = require('./routes/r_index.js');
-// bind routes to root (WHY IS THIS NEEDED IF WE'VE REQUIRED THE CONTROLLER.JS FILE?)
-app.use('/', routes);
+var html_routes = require('./routes/html_routes.js');
+var api_routes = require('./routes/api_routes.js');
+
+// bind routes to root 
+app.use('/', html_routes);
+app.use('/', api_routes);
 
 var PORT = process.env.PORT || 3000;
 app.listen(PORT);
