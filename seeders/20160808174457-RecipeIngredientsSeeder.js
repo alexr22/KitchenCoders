@@ -12,14 +12,14 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-        return queryInterface.bulkInsert('Ingredient', [
-            {name: 'Turkey', category: 'Meat', inPantry: 0},
-            {name: 'Wheat Bread', category: 'Bread', inPantry: 0},
-            {name:'Lettuce', category: 'Vegetable', inPantry: 0},
-            {name: 'Tomatoes', category: 'Vegetable', inPantry: 0},
-            {name: 'Mustard', category: 'Condiment', inPantry: 0},
-            {name: 'Mayo', category: 'Condiment', inPantry: 0}
-        ], {});
+    return queryInterface.bulkInsert('Recipeingredients', [
+      {IngredientId: 1, RecipeId: 1},
+      {IngredientId: 2, RecipeId: 1},
+      {IngredientId: 3, RecipeId: 1},
+      {IngredientId: 4, RecipeId: 1},
+      {IngredientId: 5, RecipeId: 1},
+      {IngredientId: 6, RecipeId: 1}
+    ], {});
 
     },
 
@@ -31,7 +31,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete('Ingredient', null, {});
+      return queryInterface.bulkDelete('Recipeingredients', null, {});
 
   }
 };

@@ -36,19 +36,7 @@ seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 })
 
 
-.then(function(){
-	return models.Recipe.create(
-		{title: 'Turkey Sandwich',
-		 instructions: 'Take out two pieces of Bread. Spread mayo on one slice and mustard on the other. Add a layer of turkey, cheese, tomatoes, and lettuce.',
-		 cuisine: 'Miscellaneous'
-		})
-	.then(function(recipe){
-    return models.Ingredient.findAll({where: {name: ['Lettuce','Turkey','Tomatoes']}})
-    	.then(function(ingredients){recipe.addIngredients(ingredients);
-    	})
-	})
 
-})
 
 
 // create an instance of express by running the express function

@@ -2,27 +2,27 @@
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Recipeingredients', {
-      id: {
+       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      favorite: {
+     favorite: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       IngredientId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Recipe',
+          model: 'Ingredient',
           key: 'id'
         },
       onUpdate: 'cascade',
@@ -31,7 +31,7 @@ module.exports = {
       RecipeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Ingredient',
+          model: 'Recipe',
           key: 'id'
         },
       onUpdate: 'cascade',

@@ -50,7 +50,7 @@ $('#button').on("click", function(){
     console.log(freshIngredient);
     var currentURL = window.location.origin;
     console.log(currentURL);
-    $.post( currentURL + "/ingredients/add", freshIngredient, function( data) {
+    $.post( currentURL + "/ingredient/add", freshIngredient, function( data) {
        // clear the form when submitting
        $("#ingredientName").val("");
        $("#category").val("");
