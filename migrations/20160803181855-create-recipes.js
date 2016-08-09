@@ -8,19 +8,34 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      routeName: {
-        type: Sequelize.STRING
-      },
       title: {
         type: Sequelize.STRING
       },
+      image: {
+        type: Sequelize.STRING
+      },
+      vegetarian: {
+        type: Sequelize.BOOLEAN
+      },
+      vegan: {
+        type: Sequelize.BOOLEAN
+      },
+      glutenFree: {
+        type: Sequelize.BOOLEAN
+      },
+      servings: {
+        type: Sequelize.STRING
+      },
+      preparationMinutes: {
+        type: Sequelize.INTEGER
+      },
+      cookingMinutes: {
+        type: Sequelize.INTEGER
+      },
+      sourceUrl: {
+        type: Sequelize.STRING
+      },
       instructions: {
-        type: Sequelize.STRING
-      },
-      cuisine: {
-        type: Sequelize.STRING
-      },
-      photo: {
         type: Sequelize.STRING
       },
       createdAt: {

@@ -1,11 +1,16 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define('Recipe', {
-    routeName: DataTypes.STRING,
     title: DataTypes.STRING,
+    image: DataTypes.STRING,
+    vegetarian: DataTypes.BOOLEAN,
+    vegan: DataTypes.BOOLEAN,
+    glutenFree: DataTypes.BOOLEAN,
+    servings: DataTypes.INTEGER,
+    preparationMinutes: DataTypes.INTEGER,
+    cookingMinutes: DataTypes.INTEGER,
+    sourceUrl: DataTypes.STRING,
     instructions: DataTypes.STRING,
-    cuisine: DataTypes.STRING,
-    photo: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
