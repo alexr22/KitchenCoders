@@ -1,3 +1,7 @@
+var path = require('path');
+
+module.exports = function(searchParams)
+{
 
 // ============================================================
 // DEPENDENCIES
@@ -66,11 +70,19 @@ function createRecipe(newRecipe, recipeIngredients){
         })
    .then(function(recipe){
         var ingredientNames =[];
+
+        var ingredientAmounts = [];
         for (var x=0; x<recipeIngredients.length; x++){
             ingredientNames.push(recipeIngredients[x].name);
+            var ingredientAmount = {amount: recipeIngredients[x].amount, unit: recipeIngredients[x].unit};
+            ingredientAmounts.push(ingredientAmount);
         }
        return models.Ingredient.findAll({where: {name: ingredientNames}})
             .then(function(ingredients){recipe.addIngredients(ingredients);
+    //  ********************************************************
+    //   NEED TO CHANGE THIS TO LOOP OF 'addIngredient' so we can
+    //  include amounts and units.
+     //       .then(function(ingredients){recipe.addIngredients(ingredients, ingredientAmounts);
        })
    })
 }
@@ -135,9 +147,9 @@ function processOneRecipe(newRecipe){
                 category: extendedIngredients[i].aisle
             };
             var recipeIngredient = {
-                name: extendedIngredients[i].name
-//                amount: extendedIngredients[i].amount,
-//                unit: extendedIngredients[i].unit
+                name: extendedIngredients[i].name,
+                amount: extendedIngredients[i].amount,
+                unit: extendedIngredients[i].unit
             };
         	newIngredients.push(newIngredient);
             recipeIngredients.push(recipeIngredient);
@@ -152,10 +164,14 @@ function processOneRecipe(newRecipe){
 //========================================================================
 //
 // First we run this query so that we can drop our tables even though they have foreign keys
+
+var searchTerm = searchParams.searchTerm;
+var veganValue = searchParams.veganValue;
+
 seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
 // SEARCH FOR 10 RECIPES - RIGHT NOW THEY ARE FOR BURGER RECIPES
-unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=ham&type=main+course")
+unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=" + searchTerm + "&type=main+course")
 .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
 .end(function (result) {
 
@@ -165,6 +181,8 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
     processAllRecipes(recipeSearchResults);
 
 });
+
+} //end of getRecipes function
 
 
 //  this section is for the instructions.  Still need to work on this

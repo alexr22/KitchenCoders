@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>admin page</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+
+<h2>Go Get Some Recipes For The Database</h2>
+<form class="create-update-form" action="../admin/add" method="POST">
+
+  <div class="form-group">
+    <label for="searchTerm">Search Term:</label>
+    <input type="text" id="searchTerm" name="searchTerm">
+  </div>
+
+  <div class="form-group">
+    <label for="vegan">Vegan?</label><br>
+    <input type="radio" name="vegan" value="1" checked> Vegan<br>
+    <input type="radio" name="vegan" value="0"> Not Vegan
+  </div>
+
+  <button type="submit">Get Recipes Now</button>
+</form>
+
+</body>
+</html>

@@ -18,14 +18,15 @@ router.get('/', function (req, res) {
 });
 
 //******************************************************
-//  ROUTE FOR HOME 
+//  ROUTE FOR HOME
 //******************************************************
 // THIS IS THE HOME PAGE
 // From this page, user can decide what to do
 // User can
-//    (1) go to the ingredients page (see below)
-//    (2) go to the recipes page (see below)
-//    (3) go to the preferences page (see below)
+//    (1) go to the ingredients page
+//    (2) go to the findRecipes page
+//	  (3) go to the addRecipes page
+//    (4) go to the preferences page
 router.get('/home', function (req, res) {
 	res.sendFile(path.join(__dirname + '/../public/home.html'));
 });
@@ -39,14 +40,16 @@ router.get('/home', function (req, res) {
 //    (1) add ingredients,
 //    (2) change status of ingredient to inStock or not inStock, or
 //    (3) make a change to an ingredient already in the database (other than inStock)
+//    (4) delete an ingredient
+//    MODEL THIS AFTER OUR BURGERS HOMEWORK
 router.get('/ingredient', function (req, res) {
 	res.sendFile(path.join(__dirname + '/../public/ingredient.html'));
 });
 
 //******************************************************
-//  ROUTE FOR RECIPE
+//  ROUTE FOR FIND RECIPE
 //******************************************************
-// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR RECIPES
+// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR FIND RECIPES
 // From this page, user can
 //    (1) enter filtering information and initiate a search for recipes,
 //    (2) ???
@@ -55,9 +58,24 @@ router.get('/ingredient', function (req, res) {
 // *******note - remember to redefine the /recipe route in the api_routes file
 // ******* to somethinglike /recipe/results
 //router.get('/recipe', function (req, res) {
-//	res.sendFile(path.join(__dirname + '/../public/recipe.html'));
+//	res.sendFile(path.join(__dirname + '/../public/findRecipe.html'));
 //});
 
+//
+//******************************************************
+//  ROUTE FOR ADDING A RECIPE
+//******************************************************
+// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR ADDING A RECIPE
+// From this page, user can
+//    (1) ENTER INFORMATION FOR A RECIPE AND ADD IT TO THE DATABASE
+//
+// *******note - remember to redefine the /recipe route in the api_routes file
+// ******* to somethinglike /recipe/results
+//router.get('/recipe', function (req, res) {
+//	res.sendFile(path.join(__dirname + '/../public/addRecipe.html'));
+//});
+//
+//
 //******************************************************
 //  ROUTE FOR PREFERENCES
 //******************************************************
@@ -68,7 +86,7 @@ router.get('/ingredient', function (req, res) {
 //    (3) ???
 //
 //router.get('/preference', function (req, res) {
-//	res.sendFile(path.join(__dirname + '/../public/preference.html'));
+//	res.sendFile(path.join(__dirname + '/../public/preferences.html'));
 //});
 
 //******************************************************
@@ -83,5 +101,19 @@ router.get('/ingredient', function (req, res) {
 //router.get('/login', function (req, res) {
 //	res.sendFile(path.join(__dirname + '/../public/login.html'));
 //});
+
+//******************************************************
+//  ROUTE FOR HOME
+//******************************************************
+// THIS IS THE HOME PAGE
+// From this page, user can decide what to do
+// User can
+//    (1) go to the ingredients page
+//    (2) go to the findRecipes page
+//	  (3) go to the addRecipes page
+//    (4) go to the preferences page
+router.get('/admin', function (req, res) {
+	res.sendFile(path.join(__dirname + '/../public/admin.html'));
+});
 
 module.exports = router;
