@@ -27,6 +27,7 @@ var recipeSearchResults = [];
 var oneRecipeData = {};
 var recipeID ="";
 var searchTerm = "";
+var recipeIngredients = [];
 
 function enterRecipe(newRecipe){
     // We run this query so that we can drop our tables even though they have foreign keys
@@ -38,8 +39,28 @@ function enterRecipe(newRecipe){
         return seqConnection.sync()
     })
     // enter new ingredients
+    .then(function(){
+        console.log("here", newRecipe.extendedIngredients);
+        var extendedIngredients = newRecipe.extendedIngredients;
+        var newIngredients = [];
 
-
+        for (var i=0; i<extendedIngredients.length; i++) {
+            var newIngredient = {
+                name: extendedIngredients[i].name,
+                spoonId: extendedIngredients[i].id,
+                category: extendedIngredients[i].aisle
+            }
+            var recipeIngredient = {
+                name: extendedIngredients[i].name,
+                amount: extendedIngredients[i].amount,
+                unit: extendedIngredients[i].unit
+            }
+        }
+        recipeIngredients.push(recipeIngredient);
+        newIngredients.push(newIngredient);
+        console.log(newIngredients);
+        return models.Ingredient.bulkCreate([newIngredients]);
+    })
 
     // then enter new recipe
     .then(function(){

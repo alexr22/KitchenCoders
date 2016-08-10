@@ -14,6 +14,9 @@ module.exports = {
       category: {
         type: Sequelize.STRING
       },
+      spoonID: {
+        type: Sequelize.INTEGER
+      },
       inPantry: {
         type: Sequelize.BOOLEAN
       },

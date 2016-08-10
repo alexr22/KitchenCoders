@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var Ingredient = sequelize.define('Ingredient', {
     name: DataTypes.STRING,
     category: DataTypes.STRING,
+    spoonID: DataTypes.INTEGER,
     inPantry: DataTypes.BOOLEAN
   }, {
     classMethods: {
