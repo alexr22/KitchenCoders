@@ -1,7 +1,8 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Recipeingredient = sequelize.define('Recipeingredients', {
-    favorite: DataTypes.BOOLEAN,
+    amount: DataTypes.DECIMAL,
+    unit: DataTypes.STRING,
     IngredientId: DataTypes.INTEGER,
     RecipeId: DataTypes.INTEGER
   }, {

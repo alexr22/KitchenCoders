@@ -66,11 +66,19 @@ function createRecipe(newRecipe, recipeIngredients){
         })
    .then(function(recipe){
         var ingredientNames =[];
+
+        var ingredientAmounts = [];
         for (var x=0; x<recipeIngredients.length; x++){
             ingredientNames.push(recipeIngredients[x].name);
+            var ingredientAmount = {amount: recipeIngredients[x].amount, unit: recipeIngredients[x].unit};
+            ingredientAmounts.push(ingredientAmount);
         }
        return models.Ingredient.findAll({where: {name: ingredientNames}})
             .then(function(ingredients){recipe.addIngredients(ingredients);
+    //  ********************************************************
+    //   NEED TO CHANGE THIS TO LOOP OF 'addIngredient' so we can
+    //  include amounts and units.
+     //       .then(function(ingredients){recipe.addIngredients(ingredients, ingredientAmounts);
        })
    })
 }
@@ -135,9 +143,9 @@ function processOneRecipe(newRecipe){
                 category: extendedIngredients[i].aisle
             };
             var recipeIngredient = {
-                name: extendedIngredients[i].name
-//                amount: extendedIngredients[i].amount,
-//                unit: extendedIngredients[i].unit
+                name: extendedIngredients[i].name,
+                amount: extendedIngredients[i].amount,
+                unit: extendedIngredients[i].unit
             };
         	newIngredients.push(newIngredient);
             recipeIngredients.push(recipeIngredient);
