@@ -1,3 +1,7 @@
+var path = require('path');
+
+module.exports = function(searchParams)
+{
 
 // ============================================================
 // DEPENDENCIES
@@ -160,10 +164,14 @@ function processOneRecipe(newRecipe){
 //========================================================================
 //
 // First we run this query so that we can drop our tables even though they have foreign keys
+
+var searchTerm = searchParams.searchTerm;
+var veganValue = searchParams.veganValue;
+
 seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
 // SEARCH FOR 10 RECIPES - RIGHT NOW THEY ARE FOR BURGER RECIPES
-unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=ham&type=main+course")
+unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=" + searchTerm + "&type=main+course")
 .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
 .end(function (result) {
 
@@ -173,6 +181,8 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
     processAllRecipes(recipeSearchResults);
 
 });
+
+} //end of getRecipes function
 
 
 //  this section is for the instructions.  Still need to work on this

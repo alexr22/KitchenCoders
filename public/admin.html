@@ -13,82 +13,23 @@
 
 
 
-</div>
 
-  <form>  
-    <h4>ADMINISTRATIVE PAGE<h4>
-    <input type="text" id="ingredient" value="Ingredient"><br>
+<h2>Go Get Some Recipes For The Database</h2>
+<form class="create-update-form" action="../admin/add" method="POST">
 
-    
-    <button type="submit" id="button">SUBMIT</button>
-  </form>
+  <div class="form-group">
+    <label for="searchTerm">Search Term:</label>
+    <input type="text" id="searchTerm" name="searchTerm">
+  </div>
 
+  <div class="form-group">
+    <label for="vegan">Vegan?</label><br>
+    <input type="radio" name="vegan" value="1" checked> Vegan<br>
+    <input type="radio" name="vegan" value="0"> Not Vegan
+  </div>
 
-<script type="text/javascript">
-     // Get recipes from food2fork website
-
-    var queryURL = "";
-    var numResults = 0;
-    var recipeID ="";
-
-  // BigOven key
-    var authKey ="b51799f689f89bdc92b57ec5e8f5157e";
-    var queryURLBase = "http://food2fork.com/api/search?key=" + authKey + "&q=";
- 
-
-function runQuery(queryURL){
-
-  // The AJAX function uses the URL and Gets the JSON data associated with it. The data then gets stored in the variable called: "NYTData"
-  $.ajax({url: queryURL, method: "GET"}) 
-    .done(function(recipeData) {
-
-      // Here we are logging the URL so we have access to it for troubleshooting
-      console.log("------------------------------------")
-      console.log("URL: " + queryURL);
-      console.log("------------------------------------")
-
-      // Here we then log the NYTData to console, where it will show up as an object.
-      console.log(recipeData);
-      console.log("------------------------------------")
-
-      // Loop through and provide the correct number of articles
-      for (var i=0; i<recipeData.recipes.length; i++) {
-
-          // Add to the Article Counter (to make sure we show the right number)
-          
-          // Log the remaining fields to console as well
-          console.log(recipeData.recipes[i].title);
-          console.log(recipeData.recipes[i].recipe_id);
-          console.log(recipeData.recipes[i].source_url);  
-      }
-    });
-
-}
-
-
-
-
-$('#button').on("click", function(){
-
-    var searchTerm = $('#ingredient').val().trim();
-    queryURL = queryURLBase + searchTerm;
-
-    runQuery(queryURL);
-    
-  return false;
-}); 
- 
-         
-</script>
-<div class="container">
-<div class="form-group">
-   <div id = "button90">
-     <button type="submit" class="btn btn-default">Back</button>
-     <button type="submit" class="btn btn-default">Update my ingredients!</button>
-    </div>
- </div>
- </form>
-</div>
+  <button type="submit">Get Recipes Now</button>
+</form>
 
 </body>
 </html>
