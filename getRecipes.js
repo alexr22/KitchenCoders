@@ -16,7 +16,7 @@ var models = require('./models');
 /// extract our sequelize connection from the models object, to avoid confusion
 var seqConnection = models.sequelize;
 
-// Include the unirest npm package 
+// Include the unirest npm package
 var unirest = require('unirest');
 var fs = require('fs');
 
@@ -40,48 +40,53 @@ function enterRecipe(newRecipe){
     })
     // enter new ingredients
     .then(function(){
-        console.log("here", newRecipe.extendedIngredients);
+
         var extendedIngredients = newRecipe.extendedIngredients;
         var newIngredients = [];
+        recipeIngredients =[];
 
         for (var i=0; i<extendedIngredients.length; i++) {
             var newIngredient = {
                 name: extendedIngredients[i].name,
-                spoonId: extendedIngredients[i].id,
+                spoonID: extendedIngredients[i].id,
                 category: extendedIngredients[i].aisle
-            }
+            };
             var recipeIngredient = {
                 name: extendedIngredients[i].name,
                 amount: extendedIngredients[i].amount,
                 unit: extendedIngredients[i].unit
-            }
+            };
+        	recipeIngredients.push(recipeIngredient);
+        	newIngredients.push(newIngredient);
+        	models.Ingredient.findOrCreate({where: {spoonID: extendedIngredients[i].id}, defaults: {name: extendedIngredients[i].name, category: extendedIngredients[i].aisle}})
         }
-        recipeIngredients.push(recipeIngredient);
-        newIngredients.push(newIngredient);
-        console.log(newIngredients);
-        return models.Ingredient.bulkCreate([newIngredients]);
-    })
+       })
+    //    console.log("newIngredients here:", newIngredients);
+    //    console.log("recipeIngredients here:", recipeIngredients);
+    //    return models.Ingredient.bulkCreate(newIngredients, {ignoreDuplicates: true})
 
     // then enter new recipe
-    .then(function(){
-     return models.Recipe.create(
-        {title: newRecipe.title,
-        image: newRecipe.image,
-        vegetarian: newRecipe.vegetarian,
-        vegan: newRecipe.vegan,
-        glutenFree: newRecipe.glutenFree,
-        servings: newRecipe.servings,
-        preparationMinutes: newRecipe.preparationMinutes,
-        cookingMinutes: newRecipe.cookingMinutes,
-        sourceUrl: newRecipe.sourceUrl
-        })
-//        .then(function(recipe){
-//            return models.Ingredient.findAll({where: {name: [recipeIngredients]}})
-//            .then(function(ingredients){recipe.addIngredients(ingredients);
-//            })
-//        })
+	    .then(function(){
+	     return models.Recipe.create(
+	        {title: newRecipe.title,
+	        image: newRecipe.image,
+	        vegetarian: newRecipe.vegetarian,
+	        vegan: newRecipe.vegan,
+	        glutenFree: newRecipe.glutenFree,
+	        servings: newRecipe.servings,
+	        preparationMinutes: newRecipe.preparationMinutes,
+	        cookingMinutes: newRecipe.cookingMinutes,
+	        sourceUrl: newRecipe.sourceUrl
+	    	})
+	 	})
+		//        .then(function(recipe){
+		//            return models.Ingredient.findAll({where: {name: [recipeIngredients]}})
+		//            .then(function(ingredients){recipe.addIngredients(ingredients);
+		//            })
+		//        })
 
-    })
+
+
 }
 
 
@@ -114,13 +119,10 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
                 servings: result.body.servings,
                 preparationMinutes: result.body.preparationMinutes,
                 cookingMinutes: result.body.cookingMinutes,
-                sourceUrl: result.body.sourceUrl
+                sourceUrl: result.body.sourceUrl,
+                extendedIngredients: result.body.extendedIngredients
+
             };
-            console.log("title: ", typeof(oneRecipeData.title), oneRecipeData.title);
-            console.log("image: ", typeof(oneRecipeData.image), oneRecipeData.image);
-            console.log("vegetarian: ", typeof(oneRecipeData.vegetarian), oneRecipeData.vegetarian);
-            console.log("servings: ", typeof(oneRecipeData.servings), oneRecipeData.servings);
-            console.log("sourceUrl: ", typeof(oneRecipeData.sourceUrl), oneRecipeData.sourceUrl);
             enterRecipe(oneRecipeData);
         });
     }
@@ -131,7 +133,7 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
 
 
 
-		
+
 // unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/262682/information?includeNutrition=false")
 // .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
 // .end(function (result) {
