@@ -1,13 +1,13 @@
 /* var text-decoration */
-@font-face {
+/*@font-face {
   font-family: myfont;
-  src: url(../fonts/ufonts.com_tw-cen-mt.ttf);
-}
+  src: url(fonts/ufonts.com_tw-cen-mt.ttf);
+}*/
 /*--
     Common Css
 --*/
 body {
-  font-family: myfont;
+  /*font-family: myfont;*/
   font-size: 14px;
   font-weight: 400;
 }
@@ -18,7 +18,7 @@ h4,
 h5,
 h6 {
   margin: 0px;
-  font-family: myfont;
+  /*font-family: myfont;*/
 }
 h1 {
   font-size: 36px;
@@ -36,7 +36,7 @@ p {
   font-weight: 400;
   line-height: 20px;
   margin: 0px;
-  font-family: myfont;
+  /*font-family: myfont;*/
 }
 ul {
   padding: 0;
@@ -60,7 +60,7 @@ a:active {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("../images/overlay-pattern.png") #000000;
+  background: #ffffff;
   opacity: 0.3;
 }
 /*--
@@ -133,95 +133,54 @@ a:active {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("../images/overlay-pattern.png") #000000;
+  background: url("images/overlay-pattern.png") #000000;
   opacity: 0.3;
 }
 /*--
     nav Start
 --*/
-nav {
-  z-index: 99999;
-  width: 100%;
-}
-nav .block {
-  margin-top: -85px;
-  background: #fff;
-  padding: 25px 40px;
-  background: rgba(255, 255, 255, 0.89);
-}
-nav .block .navbar-default {
-  border: none;
-  border-radius: 0px;
+#main-nav {
+  font-family: serif;
   margin-bottom: 0;
-  background: none;
+  font-weight: bolder;
 }
-nav .block .navbar-default .navbar-brand {
-  padding-left: 0px;
+#main-nav.navbar-default .navbar-brand {
+    color: rgba(255, 255, 255, 1);
 }
-nav .block .navbar-default .navbar-brand p {
-  font-size: 30px;
+.navbar-default {
+    font-size: 25px;
+    background-color: rgba(0, 128, 0, 1);
+    border-width: 1px;
+    border-radius: 4px;
 }
-nav .block .navbar-default .navbar-nav {
-  padding-top: 10px;
+#main-nav.navbar-default .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 128, 0, 1);
 }
-nav .block .navbar-default .navbar-nav > li > a {
-  color: #2E2E2E;
-  padding: 10px 0px;
-  margin: 0px 15px;
-  font-size: 17px;
-  text-transform: uppercase;
+#main-nav.navbar-default .navbar-nav>li>a:hover,
+#main-nav.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(0, 128, 0, 1);
+    background-color: rgba(248, 248, 248, 1);
 }
-nav .block .navbar-default .navbar-nav > li > a:before {
-  background-color: transparent;
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: block;
-  height: 2px;
-  -webkit-transition: .3s all;
-  -o-transition: .3s all;
-  transition: .3s all;
-  width: 0;
+#main-nav.navbar-default .navbar-nav>.active>a,
+#main-nav.navbar-default .navbar-nav>.active>a:hover,
+#main-nav.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(0, 128, 0, 1);
+    background-color: rgba(255, 255, 255, 1);
 }
-nav .block .navbar-default .navbar-nav > li > a:hover:before {
-  background-color: #e94c3d;
-  content: "";
-  width: 100%;
+#main-nav.navbar-default .navbar-toggle {
+    border-color: #ffffff;
 }
-nav .block .navbar-default .navbar-nav > li.current > a {
-  color: #2E2E2E;
-  padding: 10px 0px;
-  margin: 0px 15px;
+#main-nav.navbar-default .navbar-toggle:hover,
+#main-nav.navbar-default .navbar-toggle:focus {
+    background-color: #ffffff;
 }
-nav .block .navbar-default .navbar-nav > li.current > a:before {
-  background-color: transparent;
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: block;
-  height: 2px;
-  -webkit-transition: .3s all;
-  -o-transition: .3s all;
-  transition: .3s all;
-  width: 100%;
-  background-color: #e94c3d;
+#main-nav.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
 }
-nav .block .navbar-default .navbar-nav > .active > a,
-nav .block .navbar-default .navbar-nav > .active > a:focus,
-nav .block .navbar-default .navbar-nav > .active > a:hover {
-  background: none;
-}
-nav .block .navbar-default .navbar-nav > .active > a:before,
-nav .block .navbar-default .navbar-nav > .active > a:focus:before,
-nav .block .navbar-default .navbar-nav > .active > a:hover:before {
-  content: "";
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  height: 2px;
-  background: #FF5333;
+#main-nav.navbar-default .navbar-toggle:hover .icon-bar,
+#main-nav.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #008000;
 }
 /*--
     slider Start
@@ -285,7 +244,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 #blog {
   padding-top: 75px;
   padding-bottom: 100px;
-  background: url("../images/blog/blog-bg.jpg");
+  background: url("images/blog/blog-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -300,7 +259,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("../images/overlay-pattern.png") #000000;
+  background: url("images/overlay-pattern.png") #000000;
   opacity: 0.3;
 }
 #blog .block .heading {
@@ -495,7 +454,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
 #subscribe {
   padding: 100px 0px;
   text-align: center;
-  background: url("../images/subscribe-bg.jpg");
+  background: url("images/subscribe-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -510,7 +469,7 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("../images/overlay-pattern.png") #000000;
+  background: url("images/overlay-pattern.png") #000000;
   opacity: 0.3;
 }
 #subscribe .block h1.heading {

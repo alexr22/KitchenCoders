@@ -43,6 +43,9 @@ router.post('/ingredient/add', function (req, res) {
 // we update the database with that information
 
 
+router.get('/home', function (req, res) {
+		res.render('home');
+	});
 
 
 //******************************************************
