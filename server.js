@@ -48,6 +48,8 @@ var app = express();
 // express.static is express's (only) built-in middleware
 // It is used to serve static files such as images and html, css and js files.
 // The process.cwd method return the current working directory of the node.js process
+
+//app.use(express.static(process.cwd() + '/public'));
 app.use(express.static(__dirname + '/public'));
 
 // BodyParser makes it easy for our server to interpret data sent to it.
@@ -84,8 +86,10 @@ app.set('view engine', 'handlebars');
 // var html_routes = require('./routes/html_routes.js');
 var api_routes = require('./routes/api_routes.js');
 
-// bind routes to root 
+
+// bind routes to root
 // app.use('/', html_routes);
+
 app.use('/', api_routes);
 
 var PORT = process.env.PORT || 3000;
