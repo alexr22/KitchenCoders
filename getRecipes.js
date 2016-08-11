@@ -78,14 +78,14 @@ function createRecipe(newRecipe, recipeIngredients){
             ingredientAmounts.push(ingredientAmount);
         }
        return models.Ingredient.findAll({where: {name: ingredientNames}})
-            .then(function(ingredients){
-                console.log("THIS IS INGREDIENTS", typeof(ingredients), ingredients);
 
-                recipe.addIngredients(ingredients);
-    //  ********************************************************
-    //   NEED TO CHANGE THIS TO LOOP OF 'addIngredient' so we can
-    //  include amounts and units.
-     //       .then(function(ingredients){recipe.addIngredients(ingredients, ingredientAmounts);
+            .then(function(ingredients){
+
+                for (var i=0; i<ingredients.length; i++) {
+                    var option = ingredientAmounts[i];
+                    {recipe.addIngredient(ingredients[i],ingredientAmounts[i])};
+
+                }
        })
    })
 }
