@@ -27,9 +27,9 @@ router.get('/', function (req, res) {
 //    (2) go to the findRecipes page
 //	  (3) go to the addRecipes page
 //    (4) go to the preferences page
-router.get('/home', function (req, res) {
-	res.sendFile(path.join(__dirname + '/../public/home.html'));
-});
+// router.get('/home', function (req, res) {
+// 	res.sendFile(path.join(__dirname + '/../public/home.html'));
+// });
 
 
 //******************************************************
@@ -42,9 +42,9 @@ router.get('/home', function (req, res) {
 //    (3) make a change to an ingredient already in the database (other than inStock)
 //    (4) delete an ingredient
 //    MODEL THIS AFTER OUR BURGERS HOMEWORK
-router.get('/ingredient', function (req, res) {
-	res.sendFile(path.join(__dirname + '/../public/ingredient.html'));
-});
+// router.get('/ingredient', function (req, res) {
+// 	res.sendFile(path.join(__dirname + '/../public/ingredient.html'));
+// });
 
 //******************************************************
 //  ROUTE FOR FIND RECIPE
