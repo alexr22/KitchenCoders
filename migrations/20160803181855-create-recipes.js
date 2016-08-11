@@ -36,7 +36,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       instructions: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+      },
+      isMatch: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      spoonID: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: true,

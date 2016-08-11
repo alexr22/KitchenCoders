@@ -50,6 +50,7 @@ var app = express();
 // The process.cwd method return the current working directory of the node.js process
 app.use(express.static(process.cwd() + '/public'));
 
+
 // BodyParser makes it easy for our server to interpret data sent to it.
 
 app.use(bodyParser.json());  // middleware that only parses JSON
@@ -84,8 +85,8 @@ app.set('view engine', 'handlebars');
 var html_routes = require('./routes/html_routes.js');
 var api_routes = require('./routes/api_routes.js');
 
-// bind routes to root 
 app.use('/', html_routes);
+
 app.use('/', api_routes);
 
 var PORT = process.env.PORT || 3000;

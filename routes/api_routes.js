@@ -14,7 +14,23 @@ var Ingredient = require('../models')["Ingredient"];
 //******************************************************
 //  ROUTES FOR INGREDIENTS
 //******************************************************
-// 
+
+//
+// POST REQUEST TO URI  - /INGREDIENTS
+// provide ingredients information to display
+// see ingredient.handlebars
+// router.get('/ingredient', function (req, res) {
+// 	Ingredient.findAll()
+// 	.then (function(ingredients){
+// 		var hbsObject = {ingredients};
+// 		res.render('ingredient', hbsObject);
+// 	});
+// });
+
+router.get('/ingredient', function (req, res) {
+		res.render('ingredient');
+
+});
 // POST REQUEST TO URI  - /INGREDIENTS/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
@@ -22,8 +38,8 @@ router.post('/ingredient/add', function (req, res) {
 	console.log("ingredient received", req.body);
 	Ingredient.create(
 		{name: req.body.name,
-			category: req.body.category,
-			inPantry: req.body.inStock})
+		category: req.body.category,
+		inPantry: req.body.inStock})
 		.then (function(){
 			res.redirect('/ingredient');
 		});
@@ -34,10 +50,24 @@ router.get('/findRecipe', function(req, res) {
 })
 
 // POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
+router.get('/ingredient', function (req, res) {
+	Ingredient.findAll()
+	.then (function(ingredients){
+		var hbsObject = {ingredients};
+		res.render('ingredient', hbsObject);
+	});
+});// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
+router.put('/ingredient/update/:id', function (req, res) {
+	var condition = 'id = ' + req.params.id;
 
+	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
+	.then (function () {
+		res.redirect('/ingredient');
+	});
+});
 
 // POST REQUEST TO URI - /INGREDIENT/MODIFY/OTHER
 // user indentifies an ingredient and some change (other than inStock status)
@@ -46,6 +76,9 @@ router.get('/findRecipe', function(req, res) {
 // we update the database with that information
 
 
+router.get('/home', function (req, res) {
+		res.render('home');
+	});
 
 
 //******************************************************
@@ -61,7 +94,7 @@ router.get('/recipe', function (req, res) {
 	Recipe.findAll()
 	.then (function(recipe){
 		var hbsObject = {recipe};
-		res.render('index', hbsObject);
+		res.render('recipe', hbsObject);
 	});
 });
 

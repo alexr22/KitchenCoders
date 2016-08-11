@@ -1,15 +1,56 @@
-<!--
-Here is the main HTML where handlebars will render to
- -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js">
 	<head>
-		<link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
-		<title>KitchenCoders!  UTBootCamp</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>KitchenCoders</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- CSS
+        ================================================ -->
+        <!-- Owl Carousel -->
+		<link rel="stylesheet" href="css/owl.carousel.css">
+        <!-- bootstrap.min css -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Font-awesome.min css -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Main Stylesheet -->
+        <link rel="stylesheet" href="css/animate.min.css">
+
+		<link rel="stylesheet" href="css/main.css">
+        <!-- Responsive Stylesheet -->
+		<link rel="stylesheet" href="css/responsive.css">
+		<!-- Js -->
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
 	</head>
 	<body>
-		{{{ body }}}
-	</body>
-</HTML>
+
+
+    <!-- ********Nav starts here *********-->
+	<div id="main-nav" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="#">Welcome to Kitchen Recipes!!!</a>
+        </div>
+        <div class="navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/ingredient">Ingredients</a> </li>
+                <li><a href="/findRecipe">Find Recipes</a></li>
+                <li><a href="/addRecipe">Add Recipies</a></li>
+                <li><a href="/contactUs">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+      {{{ body }}}
+</body>
+</html>
 
