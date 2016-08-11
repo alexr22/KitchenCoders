@@ -8,14 +8,13 @@ var express = require('express');
 var router = express.Router();
 var Recipe = require('../models')["Recipe"];
 var Ingredient = require('../models')["Ingredient"];
-var getRecipes = require('../getRecipes');
 
 
 
 //******************************************************
 //  ROUTES FOR INGREDIENTS
 //******************************************************
-//
+// 
 // POST REQUEST TO URI  - /INGREDIENTS/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
@@ -29,6 +28,10 @@ router.post('/ingredient/add', function (req, res) {
 			res.redirect('/ingredient');
 		});
 });
+
+router.get('/findRecipe', function(req, res) {
+	res.render('findRecipe');
+})
 
 // POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
 // user identifies an ingredient and a change to the inStock status
@@ -48,7 +51,7 @@ router.post('/ingredient/add', function (req, res) {
 //******************************************************
 //  ROUTES FOR RECIPES
 //******************************************************
-//
+// 
 // GET REQUEST TO URI - /RECIPE  (*** should change to /RECIPE/RESULTS ??)
 // user has entered filtering information, which is used below
 // to query database for matching recipes
@@ -62,27 +65,12 @@ router.get('/recipe', function (req, res) {
 	});
 });
 
-//
+// 
 // POST REQUEST TO URI  - /RECIPE/ADD
 // receives new recipe entered by user
 // and updates database with the new recipe
-//  THIS IS WHERE WE WILL NEED TO MAKE THE ASSOCIATION IN THE DATABASE BETWEEN THE RECIPE AND THE INGREDIENTS IT USES
+//  THIS IS WHERE WE WILL NEED TO MAKE THE ASSOCIATION IN THE DATABASE BETWEEN THE RECIPE AND THE INGREDIENTS IT USES 
 //
-
-// here is the code that has worked to make that association
-// .then(function(){
-// 	return models.Recipe.create(
-// 		{title: 'Turkey Sandwich',
-// 		 instructions: 'Take out two pieces of Bread. Spread mayo on one slice and mustard on the other. Add a layer of turkey, cheese, tomatoes, and lettuce.',
-// 		 cuisine: 'Miscellaneous'
-// 		})
-// 	.then(function(recipe){
-//     return models.Ingredient.findAll({where: {name: ['Lettuce','Turkey','Tomatoes']}})
-//     	.then(function(ingredients){recipe.addIngredients(ingredients);
-//     	})
-// 	})
-
-// })
 
 //******************************************************
 //  ROUTES FOR ADMINISTRATOR
@@ -98,11 +86,26 @@ router.get('/recipe', function (req, res) {
 router.post('/admin/add', function (req, res) {
 	console.log("request for recipe gathering received", req.body);
 	getRecipes(
-		{searchTerm: req.body.searchTerm,
-			category: req.body.vegan});
+		{searchTerm: req.body.searchTerm, category: req.body.vegan});
 	console.log("recipes added to database");
 	res.redirect('/home');
-
 });
+
+
+
+// here is the code that has worked to make that association
+// router.post('/addRecipe', function(req, res) {
+// 	return models.Recipe.create(
+// 		{title: 'Turkey Sandwich',
+// 		 instructions: 'Take out two pieces of Bread. Spread mayo on one slice and mustard on the other. Add a layer of turkey, cheese, tomatoes, and lettuce.',
+// 		 cuisine: 'Miscellaneous'
+// 		})
+// 	.then(function(recipe){
+//     return models.Ingredient.findAll({where: {name: ['Lettuce','Turkey','Tomatoes']}})
+//     	.then(function(ingredients){recipe.addIngredients(ingredients);
+//     	})
+// 	})
+
+// })
 
 module.exports = router;

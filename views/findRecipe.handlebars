@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="containerTitle">
+    <h2>Find a Recipe!</h2>
+  </div>
+  <form>
+    <div class="container">
+      Would you like anything particular in your meal?<br><input type="text" id="searchIngredient" name="searchTerm"><br>
+      <ul>
+        <li><input type="radio" id="vegan" name="veganOpt">Vegan</li>
+        <li><input type="radio" id="gluten" name="glutenOpt">Gluten Free</li>
+        <li><input type="radio" id="vegetarian" name="vegetarianOpt">Vegetarian</li>
+        <li><input type="radio" id="groceryStore" name="groceryStoreOpt">Willing to go to the grocery store<br></li>
+      </ul><br>
+      <input type="radio" id="groceryStore" name="groceryStoreOpt">Willing to go to the grocery store<br><br>
+      <button type="submit" value="Submit" id="findRecipe">Submit</button>
+    </div>
+  </form>
+</div>
+<div class="container">
+    <h3>Your ingredients</h3>
+    {{#each ingredient}}
+        {{#if this.inPantry}}
+            <ul>
+                <div class="pantryList sameLine">
+                    <span>{{this.id.recipeTitle}}.&nbsp;</span>
+                </div>
+            </ul>
+        {{/if}}
+    {{/each}}
+</div>
+<div class="container">
+<h2>Recipes you should try:</h2>
+  {{#each recipe}}
+    {{#if this.makeIt}}
+      <ul>
+        <div class="recipeList sameLine">
+          <span>{{this.id.recipeTitle}}.&nbsp;</span>
+        </div>
+      </ul>
+    {{/if}}
+  {{/each}}
+</div>
