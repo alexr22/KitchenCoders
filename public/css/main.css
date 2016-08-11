@@ -250,6 +250,9 @@ a:active {
   background-attachment: fixed;
   position: relative;
 }
+#block .container {
+    background: url(images/header.jpg) no-repeat center center fixed; 
+}        
 #blog:before {
   content: "";
   position: absolute;
@@ -259,7 +262,7 @@ a:active {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("images/overlay-pattern.png") #000000;
+  background: #ffffff;
   opacity: 0.3;
 }
 #blog .block .heading {
