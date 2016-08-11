@@ -18,7 +18,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       inPantry: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: true,
