@@ -11,6 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     cookingMinutes: DataTypes.INTEGER,
     sourceUrl: DataTypes.STRING,
     instructions: DataTypes.STRING,
+    isMatch: DataTypes.BOOLEAN,
+    spoonID: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
