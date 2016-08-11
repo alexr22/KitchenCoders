@@ -66,7 +66,8 @@ function createRecipe(newRecipe, recipeIngredients){
         servings: newRecipe.servings,
         preparationMinutes: newRecipe.preparationMinutes,
         cookingMinutes: newRecipe.cookingMinutes,
-        sourceUrl: newRecipe.sourceUrl
+        sourceUrl: newRecipe.sourceUrl,
+        instructions: newRecipe.instructions
         })
    .then(function(recipe){
         var ingredientNames =[];
@@ -92,11 +93,11 @@ function createRecipe(newRecipe, recipeIngredients){
 
 
 function processAllRecipes(recipes){
-    var j=0;
+   var j=0;
     function outerloop(){
  //
- //       if (j < recipes.length){
-            if (j < 1){
+        if (j < recipes.length){
+
 
 // FOR EACH RECIPE IN recipeResults array, you need to do two searches
             recipeID = recipes[j].id;
@@ -106,6 +107,7 @@ function processAllRecipes(recipes){
             unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + recipeID + "/information?includeNutrition=false")
             .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
             .end(function (result) {
+
 
                 oneRecipeData = {
                     title: result.body.title,
@@ -118,7 +120,8 @@ function processAllRecipes(recipes){
                     cookingMinutes: result.body.cookingMinutes,
                     sourceUrl: result.body.sourceUrl,
                     extendedIngredients: result.body.extendedIngredients,
-                    spoonID: recipeID
+                    spoonID: recipeID,
+                    instructions: ""
 
                 };
 
@@ -175,7 +178,14 @@ function getInstructions(idTerm){
     .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
     .header("Accept", "application/json")
     .end(function (result) {
-        console.log('****************************', result.body);
+        var instructions = "";
+        var steps = result.body[0].steps;
+        for (var i=0; i<steps.length; i++) {
+            instructions += (steps[i].step + " ");
+            instructions += "<br>";
+
+        }
+        oneRecipeData.instructions = instructions;
         return processOneRecipe(oneRecipeData);
     });
 }
@@ -189,7 +199,7 @@ var searchTerm = searchParams.searchTerm;
 var veganValue = searchParams.veganValue;
 
 seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
-console.log('***** STEP ONE - SEARCH FOR RECIPES ***************');
+
 
 // SEARCH FOR 10 RECIPES -
 unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=" + searchTerm + "&type=main+course")
@@ -198,7 +208,7 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
 
 // STORE RESULTS IN recipeResults array
     recipeSearchResults = result.body.results;
-    console.log('***** STEP TWO - CALLBACK FUNCTION FOR UNIREST SEARCH FOR RECIPES ***************');
+
     processAllRecipes(recipeSearchResults);
 
 });

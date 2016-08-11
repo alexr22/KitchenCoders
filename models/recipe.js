@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     preparationMinutes: DataTypes.INTEGER,
     cookingMinutes: DataTypes.INTEGER,
     sourceUrl: DataTypes.STRING,
-    instructions: DataTypes.STRING,
+    instructions: DataTypes.TEXT,
     isMatch: DataTypes.BOOLEAN,
     spoonID: DataTypes.INTEGER
   }, {
