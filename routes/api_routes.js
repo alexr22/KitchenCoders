@@ -30,7 +30,13 @@ router.post('/ingredient/add', function (req, res) {
 		});
 });
 
-// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
+router.get('/ingredient', function (req, res) {
+	Ingredient.findAll()
+	.then (function(ingredients){
+		var hbsObject = {ingredients};
+		res.render('ingredient', hbsObject);
+	});
+});// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
