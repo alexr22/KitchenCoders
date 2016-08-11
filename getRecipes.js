@@ -115,7 +115,8 @@ function processAllRecipes(recipes){
                     preparationMinutes: result.body.preparationMinutes,
                     cookingMinutes: result.body.cookingMinutes,
                     sourceUrl: result.body.sourceUrl,
-                    extendedIngredients: result.body.extendedIngredients
+                    extendedIngredients: result.body.extendedIngredients,
+                    spoonID: recipeID
 
                 };
             processOneRecipe(oneRecipeData);
@@ -173,7 +174,7 @@ var veganValue = searchParams.veganValue;
 
 seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
-// SEARCH FOR 10 RECIPES - RIGHT NOW THEY ARE FOR BURGER RECIPES
+// SEARCH FOR 10 RECIPES -
 unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?limitLicense=false&number=10&offset=0&query=" + searchTerm + "&type=main+course")
 .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
 .end(function (result) {
@@ -187,11 +188,13 @@ unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/
 
 } //end of getRecipes function
 
+function getInstructions(){
 
-//  this section is for the instructions.  Still need to work on this
-// unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/262682/analyzedInstructions?stepBreakdown=false")
-// .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
-// .header("Accept", "application/json")
-// .end(function (result) {
-//  console.log('****************************', result.body);
-// });
+    // this section is for the instructions.  Still need to work on this
+    unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/262682/analyzedInstructions?stepBreakdown=false")
+    .header("X-Mashape-Key", "1pb1awVrWQmsh5cGX7uf2JqubVkIp1ibFl8jsnOPSRyTSkfXtR")
+    .header("Accept", "application/json")
+    .end(function (result) {
+     console.log('****************************', result.body);
+    });
+}

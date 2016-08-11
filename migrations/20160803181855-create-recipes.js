@@ -38,6 +38,13 @@ module.exports = {
       instructions: {
         type: Sequelize.STRING
       },
+      isMatch: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      spoonID: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE
