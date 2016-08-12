@@ -242,7 +242,7 @@ a:active {
     blog Start
 --*/
 #blog {
-  padding-top: 75px;
+  padding-top: 30px;
   padding-bottom: 100px;
   background: url("images/blog/blog-bg.jpg");
   background-repeat: no-repeat;
@@ -251,8 +251,8 @@ a:active {
   position: relative;
 }
 #block .container {
-    background: url(images/header.jpg) no-repeat center center fixed; 
-}        
+    background: url(images/header.jpg) no-repeat center center fixed;
+}
 #blog:before {
   content: "";
   position: absolute;

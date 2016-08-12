@@ -13,27 +13,53 @@ var getRecipes = require('../getRecipes');
 
 
 //******************************************************
+//  ROUTE FOR ROOT AND HOME
+//******************************************************
+// THIS IS THE HOME PAGE
+// From this page, user can decide what to do
+// User can
+//    (1) go to the ingredients page
+//    (2) go to the findRecipes page
+//	  (3) go to the addRecipes page
+//    (4) go to the preferences page
+//
+router.get('/', function (req, res) {
+	res.redirect('/home');
+	});
+
+router.get('/home', function (req, res) {
+	res.render('home');
+	});
+
+//******************************************************
 //  ROUTES FOR INGREDIENTS
 //******************************************************
+// User can
+//	  (1) review his/her pantry,
+//    (2) add ingredients,
+//    (3) change status of ingredient to inStock or not inStock, or
+//    (4) make a change to an ingredient already in the database (other than inStock)
+//    (5) delete an ingredient
 //
-// POST REQUEST TO URI  - /INGREDIENTS
-// provide ingredients information to display
-// see ingredient.handlebars
-// router.get('/ingredient', function (req, res) {
-// 	Ingredient.findAll()
-// 	.then (function(ingredients){
-// 		var hbsObject = {ingredients};
-// 		res.render('ingredient', hbsObject);
-// 	});
-// });
-
+// GET REQUEST TO URI  - /INGREDIENT
+// find all ingredients
+// and pass to handlebars to process further
 router.get('/ingredient', function (req, res) {
-		res.render('ingredient');
-
+	console.log("GET REQUEST RECEIVED BY SERVER");
+	Ingredient.findAll()
+	.then (function(ingredient){
+		console.log("INGREDIENT", ingredient);
+		var hbsObject = {ingredient};
+		res.render('ingredient', hbsObject);
+	});
 });
 
+<<<<<<< HEAD
 
 // POST REQUEST TO URI  - /INGREDIENTS/ADD
+=======
+// POST REQUEST TO URI  - /INGREDIENT/ADD
+>>>>>>> master
 // receives new ingredient entered by user
 // and updates database with the new ingredient
 router.post('/ingredient/add', function (req, res) {
@@ -47,13 +73,7 @@ router.post('/ingredient/add', function (req, res) {
 		});
 });
 
-router.get('/ingredient', function (req, res) {
-	Ingredient.findAll()
-	.then (function(ingredients){
-		var hbsObject = {ingredients};
-		res.render('ingredient', hbsObject);
-	});
-});// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
+// POST REQUEST TO URI - /INGREDIENT/PANTRYUPDATE
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
@@ -62,20 +82,19 @@ router.put('/ingredient/update/:id', function (req, res) {
 
 	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
 	.then (function () {
+
+
 		res.redirect('/ingredient');
 	});
 });
 
-// POST REQUEST TO URI - /INGREDIENT/MODIFY/OTHER
+// POST REQUEST TO URI - /INGREDIENT/OTHERUPDATE
 // user indentifies an ingredient and some change (other than inStock status)
 // ?? can this same routine delete the ingredient?  May need a separate
 // ??    POST REQUEST to delete
 // we update the database with that information
 
 
-router.get('/home', function (req, res) {
-		res.render('home');
-	});
 
 
 //******************************************************
@@ -96,7 +115,29 @@ router.get('/recipe', function (req, res) {
 });
 
 
+<<<<<<< HEAD
 
+=======
+// GET REQUEST TO URI - /findRecipe  
+// user presented with page where she can
+// query database for matching recipes
+// add addition limitation that all ingredients must be inStock
+//
+router.get('/findRecipe', function (req, res) {
+	res.render('findRecipe');
+	
+});
+
+
+// GET REQUEST TO URI - /addRecipe  
+// user presented with page where she can
+// query database for matching recipes
+// add addition limitation that all ingredients must be inStock
+//
+router.get('/addRecipe', function (req, res) {
+	res.render('addRecipe');
+});
+>>>>>>> master
 //
 // POST REQUEST TO URI  - /RECIPE/ADD
 // receives new recipe entered by user
@@ -120,7 +161,7 @@ router.get('/recipe', function (req, res) {
 // })
 
 //******************************************************
-//  ROUTES FOR ADMINISTRATOR
+//  ROUTE FOR ADMINISTRATOR
 //******************************************************
 //
 // GET REQUEST TO URI - /ADMIN/ADD
@@ -129,33 +170,62 @@ router.get('/recipe', function (req, res) {
 // then call getRecipes to load database with results
 //
 //
-router.get('/findrecipe', function (req, res) {
-		res.render('findrecipe');
+
+router.get('/admin', function (req, res) {
+		res.render('admin');
 	});
 
-router.post('/findrecipe/find', function (req, res) {
-		console.log("request for recipe received", req.body);
-		getRecipes(
-			{searchIngredient: req.body.searchTerm,
-				vegan: req.body.vegan,
-				glutenFree: req.body.glutenFree,
-				vegetarian: req.body.vegetarian
-			});
-		console.log("recipe added to database");
-		res.redirect('/home');
-
-
-
-});
-
 router.post('/admin/add', function (req, res) {
-	console.log("request for recipe gathering received", req.body);
 	getRecipes(
 		{searchTerm: req.body.searchTerm,
 			category: req.body.vegan});
-	console.log("recipes added to database");
 	res.redirect('/home');
 
 });
+
+//******************************************************
+//  ROUTES FOR CONTACTUS
+//******************************************************
+//
+// GET REQUEST TO URI - /RECIPE  (*** should change to /RECIPE/RESULTS ??)
+// user has entered filtering information, which is used below
+// to query database for matching recipes
+// add addition limitation that all ingredients must be inStock
+//
+router.get('/contactUs', function (req, res) {
+
+	res.render('contactUs');
+
+});
+
+
+
+
+//
+//******************************************************
+//  ROUTE FOR PREFERENCES
+//******************************************************
+// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR PREFERENCES
+// From this page, user can
+//    (1) enter information regarding the user's preferences, like food allergies and other dietary restrictins.  Other???
+//    (2) ???
+//    (3) ???
+//
+//router.get('/preference', function (req, res) {
+//	res.sendFile(path.join(__dirname + '/../public/preferences.html'));
+//});
+
+//******************************************************
+//  ROUTE FOR SIGN-IN
+//******************************************************
+// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR SIGN-IN
+// From this page, user can
+//    (1) enter user information,
+//    (2) indicate whether user is a first time user
+//    (3) ???
+//
+//router.get('/login', function (req, res) {
+//	res.sendFile(path.join(__dirname + '/../public/login.html'));
+//});
 
 module.exports = router;
