@@ -31,6 +31,8 @@ router.get('/ingredient', function (req, res) {
 		res.render('ingredient');
 
 });
+
+
 // POST REQUEST TO URI  - /INGREDIENTS/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
@@ -93,6 +95,8 @@ router.get('/recipe', function (req, res) {
 	});
 });
 
+
+
 //
 // POST REQUEST TO URI  - /RECIPE/ADD
 // receives new recipe entered by user
@@ -125,6 +129,24 @@ router.get('/recipe', function (req, res) {
 // then call getRecipes to load database with results
 //
 //
+router.get('/findrecipe', function (req, res) {
+		res.render('findrecipe');
+	});
+
+router.post('/findrecipe/find', function (req, res) {
+		console.log("request for recipe received", req.body);
+		getRecipes(
+			{searchIngredient: req.body.searchTerm,
+				vegan: req.body.vegan,
+				glutenFree: req.body.glutenFree,
+				vegetarian: req.body.vegetarian
+			});
+		console.log("recipe added to database");
+		res.redirect('/home');
+
+
+
+});
 
 router.post('/admin/add', function (req, res) {
 	console.log("request for recipe gathering received", req.body);
