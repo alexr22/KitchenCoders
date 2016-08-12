@@ -146,8 +146,6 @@ button {margin-left: 10px;
 
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
 
- console.log(ingredientLI);
-
     $('#notInPantryList').find('.' + ingredientsNotHave[i].cleanCat).append(ingredientLI);
 
   }
