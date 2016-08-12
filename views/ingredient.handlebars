@@ -99,41 +99,45 @@ button {margin-left: 10px;
     {{/if}}
 
   {{/each}}
-  console.log(categories);
-  console.log(ingredientsNotHave);
-  console.log(ingredientsHave);
+  
 
   {{! ********* NOW, WE CREATE A SEPERATE DIVISION FOR EACH CATEGORY ****}}
 
   for (var i=0; i<categories.length; i++) {
     var catDiv = $('<div>');
     catDiv.append('<h4 class="categorySection">' + categories[i] + '</h4>');
-    catDiv.append('<ul class = "categoryUL" "' + categories[i] + '"></ul>');
+    catDiv.append('<ul class = "categoryUL + ' + categories[i] + '"></ul>');
     $('#inPantryList').append(catDiv);
   }
   
   for (var i=0; i<categories.length; i++) {
     var catDiv = $('<div>');
     catDiv.append('<h4 class="categorySection">' + categories[i] + '</h4>');
-    catDiv.append('<ul class = "categoryUL" "' + categories[i] + '"></ul>');
+    catDiv.append('<ul class = "categoryUL ' + categories[i] + '"></ul>');
     $('#notInPantryList').append(catDiv);
   }
+
 
    {{! *** THEN, WE CREATE THE HTML FOR EACH INPANTRY INGREDIENT ****}}
    {{! ********* AND APPEND IT TO THE INPANTRY DIVISION *******}}
 
   for (var i=0; i<ingredientsHave.length; i++) {
+
+
     var ingredientLI = $('<li>');
     
-    ingredientLI.append('<span class="ingredientName sameLine">' + ingredients[i].name + '</span>');
+    ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsHave[i].name + '</span>');
 
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
+    console.log(ingredientLI);
 
-    $('#' + ingredientsHave[i].cleanCat).append(ingredientLI);
+    $('#inPantryList').find('.' + ingredientsHave[i].cleanCat).append(ingredientLI);
+
   }
 
 {{! ****** THEN, WE CREATE THE HTML FOR EACH NOTINPANTRY INGREDIENT ****}}
    {{! ******* AND APPEND IT TO THE NOTINPANTRY CATEGORY DIVISION *******}}
+
 
   for (var i=0; i<ingredientsNotHave.length; i++) {
     var ingredientLI = $('<li>');
@@ -142,9 +146,11 @@ button {margin-left: 10px;
 
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
 
-    $('#' + ingredientsNotHave[i].cleanCat).append(ingredientLI);
-  }
+ console.log(ingredientLI);
 
+    $('#notInPantryList').find('.' + ingredientsNotHave[i].cleanCat).append(ingredientLI);
+
+  }
 
 
 
