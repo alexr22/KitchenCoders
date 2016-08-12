@@ -1,3 +1,78 @@
+<style>
+h2 {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 30px;
+  color: green;
+}
+h4 {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+button {
+margin: 10px;
+margin-top: 15px;
+}
+#recipeForm {
+  text-align: center;
+  margin-top: 5px;
+}
+
+label {margin-top: 15px}
+
+
+</style>
+
+<div class="row">
+  <div class="container col-md-6">
+    <div class="containerTitle">
+      <h2>Find a Recipe!</h2>
+    </div>
+    <form class="create-update-form" id="recipeForm" action="findrecipe/find" method="POST">
+      <div>
+        <h4 id="question1"> Would you like anything particular in your meal?</h4><br><input type="text" id="searchIngredient" name="searchTerm"><br>
+          
+          <label for="vegan">Vegan?</label><br>
+          <input type="radio" name="vegan" value="1">Yes
+          <input type="radio" name="vegan" value="0">No<br>
+
+          <label for="gluten">Gluten Free?</label><br>
+          <input type="radio" name="gluten" value="1">Yes
+          <input type="radio" name="gluten" value="0">No<br>
+
+          <label for="vegetarian">Vegetarian?</label><br>
+          <input type="radio" name="vegetarian" value="1">Yes
+          <input type="radio" name="vegetarian" value="0">No<br>
+
+        <button type="submit" value="Submit" id="findRecipe">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="container col-md-6">
+    <h2>Your ingredients</h2>
+    {{#each ingredient}}
+        {{#if this.inPantry}}
+            <ul>
+                <div class="pantryList sameLine">
+                    <span>{{this.id.recipeTitle}}.&nbsp;</span>
+                </div>
+            </ul>
+        {{/if}}
+    {{/each}}
+  </div>
+</div>
+<div class="container col-md-6">
+<h2>Enter your preferences and submit to find a recipe!</h2>
+  {{#each recipe}}
+    {{#if this.makeIt}}
+      <ul>
+        <div class="recipeList sameLine">
+          <span>{{this.id.recipeTitle}}.&nbsp;</span>
+        </div>
+      </ul>
+    {{/if}}
+  {{/each}}
+</div>
 
 
 {{!--blog start============================ --}}
