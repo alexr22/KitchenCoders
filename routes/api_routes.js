@@ -27,10 +27,7 @@ var getRecipes = require('../getRecipes');
 // 	});
 // });
 
-router.get('/ingredient', function (req, res) {
-		res.render('ingredient');
 
-});
 // POST REQUEST TO URI  - /INGREDIENTS/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
@@ -46,9 +43,11 @@ router.post('/ingredient/add', function (req, res) {
 });
 
 router.get('/ingredient', function (req, res) {
+	console.log("GET REQUEST RECEIVED BY SERVER");
 	Ingredient.findAll()
-	.then (function(ingredients){
-		var hbsObject = {ingredients};
+	.then (function(ingredient){
+		console.log("INGREDIENT", ingredient);
+		var hbsObject = {ingredient};
 		res.render('ingredient', hbsObject);
 	});
 });// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
