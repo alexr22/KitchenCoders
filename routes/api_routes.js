@@ -13,22 +13,48 @@ var getRecipes = require('../getRecipes');
 
 
 //******************************************************
+//  ROUTE FOR ROOT AND HOME
+//******************************************************
+// THIS IS THE HOME PAGE
+// From this page, user can decide what to do
+// User can
+//    (1) go to the ingredients page
+//    (2) go to the findRecipes page
+//	  (3) go to the addRecipes page
+//    (4) go to the preferences page
+//
+router.get('/', function (req, res) {
+	res.redirect('/home');
+	});
+
+router.get('/home', function (req, res) {
+	res.render('home');
+	});
+
+//******************************************************
 //  ROUTES FOR INGREDIENTS
 //******************************************************
+// User can
+//	  (1) review his/her pantry,
+//    (2) add ingredients,
+//    (3) change status of ingredient to inStock or not inStock, or
+//    (4) make a change to an ingredient already in the database (other than inStock)
+//    (5) delete an ingredient
 //
-// POST REQUEST TO URI  - /INGREDIENTS
-// provide ingredients information to display
-// see ingredient.handlebars
-// router.get('/ingredient', function (req, res) {
-// 	Ingredient.findAll()
-// 	.then (function(ingredients){
-// 		var hbsObject = {ingredients};
-// 		res.render('ingredient', hbsObject);
-// 	});
-// });
+// GET REQUEST TO URI  - /INGREDIENT
+// find all ingredients
+// and pass to handlebars to process further
+router.get('/ingredient', function (req, res) {
+	console.log("GET REQUEST RECEIVED BY SERVER");
+	Ingredient.findAll()
+	.then (function(ingredient){
+		console.log("INGREDIENT", ingredient);
+		var hbsObject = {ingredient};
+		res.render('ingredient', hbsObject);
+	});
+});
 
-
-// POST REQUEST TO URI  - /INGREDIENTS/ADD
+// POST REQUEST TO URI  - /INGREDIENT/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
 router.post('/ingredient/add', function (req, res) {
@@ -42,15 +68,7 @@ router.post('/ingredient/add', function (req, res) {
 		});
 });
 
-router.get('/ingredient', function (req, res) {
-	console.log("GET REQUEST RECEIVED BY SERVER");
-	Ingredient.findAll()
-	.then (function(ingredient){
-		console.log("INGREDIENT", ingredient);
-		var hbsObject = {ingredient};
-		res.render('ingredient', hbsObject);
-	});
-});// POST REQUEST TO URI - /INGREDIENT/MODIFY/INSTOCK
+// POST REQUEST TO URI - /INGREDIENT/PANTRYUPDATE
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
@@ -59,20 +77,19 @@ router.put('/ingredient/update/:id', function (req, res) {
 
 	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
 	.then (function () {
+
+
 		res.redirect('/ingredient');
 	});
 });
 
-// POST REQUEST TO URI - /INGREDIENT/MODIFY/OTHER
+// POST REQUEST TO URI - /INGREDIENT/OTHERUPDATE
 // user indentifies an ingredient and some change (other than inStock status)
 // ?? can this same routine delete the ingredient?  May need a separate
 // ??    POST REQUEST to delete
 // we update the database with that information
 
 
-router.get('/home', function (req, res) {
-		res.render('home');
-	});
 
 
 //******************************************************
@@ -135,7 +152,7 @@ router.get('/addRecipe', function (req, res) {
 // })
 
 //******************************************************
-//  ROUTES FOR ADMINISTRATOR
+//  ROUTE FOR ADMINISTRATOR
 //******************************************************
 //
 // GET REQUEST TO URI - /ADMIN/ADD
@@ -144,13 +161,14 @@ router.get('/addRecipe', function (req, res) {
 // then call getRecipes to load database with results
 //
 //
+router.get('/admin', function (req, res) {
+		res.render('admin');
+	});
 
 router.post('/admin/add', function (req, res) {
-	console.log("request for recipe gathering received", req.body);
 	getRecipes(
 		{searchTerm: req.body.searchTerm,
 			category: req.body.vegan});
-	console.log("recipes added to database");
 	res.redirect('/home');
 
 });
@@ -171,64 +189,8 @@ router.get('/contactUs', function (req, res) {
 });
 
 
-//******************************************************
-//  ROUTE FOR HOME
-//******************************************************
-// THIS IS THE HOME PAGE
-// From this page, user can decide what to do
-// User can
-//    (1) go to the ingredients page
-//    (2) go to the findRecipes page
-//	  (3) go to the addRecipes page
-//    (4) go to the preferences page
-// router.get('/home', function (req, res) {
-// 	res.sendFile(path.join(__dirname + '/../public/home.html'));
-// });
 
 
-//******************************************************
-//  ROUTE FOR INGREDIENTS
-//******************************************************
-// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR INGREDIENTS
-// From this page, user can
-//    (1) add ingredients,
-//    (2) change status of ingredient to inStock or not inStock, or
-//    (3) make a change to an ingredient already in the database (other than inStock)
-//    (4) delete an ingredient
-//    MODEL THIS AFTER OUR BURGERS HOMEWORK
-// router.get('/ingredient', function (req, res) {
-// 	res.sendFile(path.join(__dirname + '/../public/ingredient.html'));
-// });
-
-//******************************************************
-//  ROUTE FOR FIND RECIPE
-//******************************************************
-// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR FIND RECIPES
-// From this page, user can
-//    (1) enter filtering information and initiate a search for recipes,
-//    (2) ???
-//    (3) ???
-//
-// *******note - remember to redefine the /recipe route in the api_routes file
-// ******* to somethinglike /recipe/results
-//router.get('/recipe', function (req, res) {
-//	res.sendFile(path.join(__dirname + '/../public/findRecipe.html'));
-//});
-
-//
-//******************************************************
-//  ROUTE FOR ADDING A RECIPE
-//******************************************************
-// HERE IS WHERE WE SERVE UP THE PUBLIC STATIC HTML PAGE FOR ADDING A RECIPE
-// From this page, user can
-//    (1) ENTER INFORMATION FOR A RECIPE AND ADD IT TO THE DATABASE
-//
-// *******note - remember to redefine the /recipe route in the api_routes file
-// ******* to somethinglike /recipe/results
-//router.get('/recipe', function (req, res) {
-//	res.sendFile(path.join(__dirname + '/../public/addRecipe.html'));
-//});
-//
 //
 //******************************************************
 //  ROUTE FOR PREFERENCES
