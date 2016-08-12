@@ -54,12 +54,8 @@ router.get('/ingredient', function (req, res) {
 	});
 });
 
-<<<<<<< HEAD
 
-// POST REQUEST TO URI  - /INGREDIENTS/ADD
-=======
 // POST REQUEST TO URI  - /INGREDIENT/ADD
->>>>>>> master
 // receives new ingredient entered by user
 // and updates database with the new ingredient
 router.post('/ingredient/add', function (req, res) {
@@ -115,9 +111,7 @@ router.get('/recipe', function (req, res) {
 });
 
 
-<<<<<<< HEAD
 
-=======
 // GET REQUEST TO URI - /findRecipe  
 // user presented with page where she can
 // query database for matching recipes
@@ -137,7 +131,6 @@ router.get('/findRecipe', function (req, res) {
 router.get('/addRecipe', function (req, res) {
 	res.render('addRecipe');
 });
->>>>>>> master
 //
 // POST REQUEST TO URI  - /RECIPE/ADD
 // receives new recipe entered by user
