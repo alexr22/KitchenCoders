@@ -1,5 +1,5 @@
 <style>
-.panel-body a 
+.panel-body a
     {
         word-break:break-all;
     }
@@ -11,8 +11,8 @@ button {margin-left: 10px;
 .categoryUL {display: none;}
 .inlineB {display: inline-block;
           vertical-align: top;
-          width: 300px;}    
-.col-md-4 {overflow: scroll; }                 
+          width: 300px;}
+.col-md-4 {overflow: scroll; }
 </style>
 
 
@@ -33,39 +33,50 @@ button {margin-left: 10px;
             </div>
            <div class="ingredientContainer" id="inPantryList">
           </div>
-        </div>  
-      </div>  
+        </div>
+      </div>
     </div>
 
 {{! ************* DIVISION FOR FORM TO ADD INGREDIENT}}
-      <div class="col-xs-12 col-md-4">
-      <div style="height: 29em">
+  <div class="col-xs-12 col-md-4">
+    <div style="height: 29em">
       <div class="container inlineB addIngredient">
-            <div class="containerTitle">
-            <form role="form">
-            <form class="create-update-form" action="ingredient/update" method="POST">
+        <div class="containerTitle">
+
+          <form role="form" class="create-update-form" action="ingredient/update" method="POST">
             <div class="form-group">
               <!-- Here we create the text box for capturing the search term-->
-            <label for="search"><h2><strong>Add Your Ingredient Here: </strong></h2> 
+
+              <label for="search"><h2><strong>Add Your Ingredient Here: </strong></h2>
+              </label>
+
               </br>
-              <input type="text" class="form-control" id="bu" name=" category">
-              </br> 
-              <select class="form-control" id="categoryOptions">
-              <option value=category>Pick From This Catagory</option>              
+                <input type="text" class="form-control" id="bu" name="name">
+              </br>
+
               <div class="categoryContainer" id="categoryList">
+                <select name="category" class="form-control" id="categoryOptions">
+
+
+                </select>
               </div>
-            </select>
             </br>
             </br>
             </br>
+
               <button id="add" type="submit" class="btn btn-default" ><i class="fa fa-check-square"></i> Add Now</button>
-              <button type="button" class="btn btn-default" id="clearAll"><i class="fa fa-trash"></i> Clear Results</button>  
-              </label>         
+
+
+              <button type="button" class="btn btn-default" id="clearAll"><i class="fa fa-trash"></i> Clear Results</button>
+
+
             </div>
-          </div>
+          </form>
+
         </div>
-      </div>    
-    </div>  
+      </div>
+    </div>
+  </div>
 
 {{! ************* DIVISION FOR INGREDIENTS NOT IN PANTRY}}
       <div class="col-xs-12 col-md-4">
@@ -106,7 +117,7 @@ button {margin-left: 10px;
       categories.push(cleanCat);
     }
     {{! ******** create an object for each ingredient **************}}
-    var ing = {name: "{{this.name}}", 
+    var ing = {name: "{{this.name}}",
               category: "{{this.category}}",
               id: "{{this.id}}",
               cleanCat: cleanCat};
@@ -121,7 +132,7 @@ button {margin-left: 10px;
       ingredientsHave.push(ing);
     {{/if}}
   {{/each}}
-  
+
   {{! ********* NOW, WE CREATE A SEPERATE DIVISION FOR EACH CATEGORY ****}}
   for (var i=0; i<categories.length; i++) {
     var catDiv = $('<div>');
@@ -129,7 +140,7 @@ button {margin-left: 10px;
     catDiv.append('<ul class = "categoryUL + ' + categories[i] + '"></ul>');
     $('#inPantryList').append(catDiv);
   }
-  
+
   for (var i=0; i<categories.length; i++) {
     var catDiv = $('<div>');
     catDiv.append('<h4 class="categorySection">' + categories[i] + '</h4>');
@@ -137,26 +148,23 @@ button {margin-left: 10px;
     $('#notInPantryList').append(catDiv);
 
   }
+
+  {{! ******** CREATE OPTIONS FOR SELECT LIST IN ADD INGREDIENT SECTION  }}
   {{! ********* NOW, WE CAN GIVE OPTION FOR EACH CATEGORY ****}}
+
   for (var i=0; i<categories.length; i++) {
-    var catDiv = $('<div>');
-    catDiv.append('<h4 class="categorySection">' + categories[i] + '</h4>');
-    catDiv.append('<ul class = "categoryUL + ' + categories[i] + '"></ul>');
-    $('#categoryOptList').append(catDiv);
+    var opt = '<option value="' + categories[i] + '">' + categories[i] + '</option>';
+
+    $('#categoryOptions').append(opt);
   }
-  
-  for (var i=0; i<categories.length; i++) {
-    var catDiv = $('<div>');
-    catDiv.append('<h4 class="categorySection>' + categories[i] + '</h4>');
-    catDiv.append('<ul class = "categoryUL ' + categories[i] + '"></ul>');
-    $('#categoryOptList').append(catDiv);
-  }
+
+
 
    {{! *** THEN, WE CREATE THE HTML FOR EACH INPANTRY INGREDIENT ****}}
    {{! ********* AND APPEND IT TO THE INPANTRY DIVISION *******}}
   for (var i=0; i<ingredientsHave.length; i++) {
     var ingredientLI = $('<li>');
-    
+
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsHave[i].name + '</span>');
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
     console.log(ingredientLI);
@@ -166,7 +174,7 @@ button {margin-left: 10px;
    {{! ******* AND APPEND IT TO THE NOTINPANTRY CATEGORY DIVISION *******}}
   for (var i=0; i<ingredientsNotHave.length; i++) {
     var ingredientLI = $('<li>');
-    
+
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsNotHave[i].name + '</span>');
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
     $('#notInPantryList').find('.' + ingredientsNotHave[i].cleanCat).append(ingredientLI);
@@ -250,7 +258,7 @@ $(document).ready(function() {
     }
 
     {{! ******** create an object for each ingredient **************}}
-    var ing = {name: "{{this.name}}", 
+    var ing = {name: "{{this.name}}",
               category: "{{this.category}}",
               id: "{{this.id}}",
               cleanCat: cleanCat};
@@ -272,7 +280,7 @@ $(document).ready(function() {
     {{/if}}
 
   {{/each}}
-  
+
 
   {{! ********* NOW, WE CREATE A SEPERATE DIVISION FOR EACH CATEGORY ****}}
 
@@ -282,7 +290,7 @@ $(document).ready(function() {
     catDiv.append('<ul class = "categoryUL + ' + categories[i] + '"></ul>');
     $('#inPantryList').append(catDiv);
   }
-  
+
   for (var i=0; i<categories.length; i++) {
     var catDiv = $('<div>');
     catDiv.append('<h4 class="categorySection">' + categories[i] + '</h4>');
@@ -298,7 +306,7 @@ $(document).ready(function() {
 
 
     var ingredientLI = $('<li>');
-    
+
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsHave[i].name + '</span>');
 
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
@@ -314,7 +322,7 @@ $(document).ready(function() {
 
   for (var i=0; i<ingredientsNotHave.length; i++) {
     var ingredientLI = $('<li>');
-    
+
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsNotHave[i].name + '</span>');
 
     ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')

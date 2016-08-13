@@ -72,8 +72,7 @@ router.post('/ingredient/update', function (req, res) {
 	console.log("ingredient received", req.body);
 	Ingredient.create(
 		{name: req.body.name,
-		category: req.body.category,
-		inPantry: req.body.inStock})
+		category: req.body.category})
 		.then (function(){
 			res.redirect('/ingredient');
 		});
