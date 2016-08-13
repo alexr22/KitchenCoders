@@ -28,10 +28,10 @@ label {margin-top: 15px}
     <div class="containerTitle">
       <h2>Find a Recipe!</h2>
     </div>
-    <form class="create-update-form" id="recipeForm" action="findrecipe/find" method="POST">
-      <div>
+    <form role="form" class="create-update-form" id="recipeForm" action="findRecipe/find" method="POST">
+      <div class="form-group">
         <h4 id="question1"> Would you like anything particular in your meal?</h4><br><input type="text" id="searchIngredient" name="searchTerm"><br>
-          
+
           <label for="vegan">Vegan?</label><br>
           <input type="radio" name="vegan" value="1">Yes
           <input type="radio" name="vegan" value="0">No<br>

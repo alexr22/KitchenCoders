@@ -16,7 +16,7 @@ button {margin-left: 10px;
 .ingredients {height: 35em;
               overflow:scroll;
               border:7px solid;
-              padding:1%; } 
+              padding:1%; }
 </style>
 
   {{! ************* MAIN HEADING}}
@@ -32,13 +32,13 @@ button {margin-left: 10px;
                   <!-- <div style="height: 29em; ">  -->
                     <div class="container inlineB inPantry">
                         <div class="containerTitle">
-                                <h2><strong>Ingredients that you have</strong></h2>   </br>        
+                                <h2><strong>Ingredients that you have</strong></h2>   </br>
                             <div class="ingredientContainer" id="inPantryList">
                             </div>
-                        </div>        
+                        </div>
                     </div>
                   </div>
-                </div>  
+                </div>
 
             {{! ************* DIVISION FOR FORM TO ADD INGREDIENT}}
               <div class="col-xs-12 col-md-4 ingredients">
@@ -55,7 +55,7 @@ button {margin-left: 10px;
                                 </br>
                               <div class="categoryContainer" id="categoryList">
                                       <select name="category" class="form-control" id="categoryOptions">
-                                      </select>      
+                                      </select>
                               </div>
                                   </br>
                                   </br>
@@ -63,7 +63,7 @@ button {margin-left: 10px;
                                  <button id="add" type="submit" class="btn btn-default" ><i class="fa fa-check-square"></i> Add Now</button>
                                  <button type="button" class="btn btn-default" id="clearAll"><i class="fa fa-trash"></i> Clear Results</button>
                         </div>
-                      </form>  
+                      </form>
                   </div>
                 </div>
               </div>
@@ -79,7 +79,7 @@ button {margin-left: 10px;
                                 </div>
                           </div>
                         </div>
-                    </div> 
+                    </div>
         </div>
       </div>
     </div>
@@ -150,8 +150,8 @@ button {margin-left: 10px;
     var ingredientLI = $('<li>');
 
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsHave[i].name + '</span>');
-    ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
-    console.log(ingredientLI);
+    ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="inPantry" value="false"><button type="submit">x</button></form>');
+
     $('#inPantryList').find('.' + ingredientsHave[i].cleanCat).append(ingredientLI);
   }
 {{! ****** THEN, WE CREATE THE HTML FOR EACH NOTINPANTRY INGREDIENT ****}}
@@ -160,7 +160,8 @@ button {margin-left: 10px;
     var ingredientLI = $('<li>');
 
     ingredientLI.append('<span class="ingredientName sameLine">' + ingredientsNotHave[i].name + '</span>');
-    ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="added" value="true"><button type="submit">x</button></form>')
+    ingredientLI.append('<form class="sameLine" action="ingredient/update/' + ingredientsNotHave[i].id + '?_method=PUT" method="POST"><input type="hidden" name="inPantry" value="true"><button type="submit">x</button></form>');
+
     $('#notInPantryList').find('.' + ingredientsNotHave[i].cleanCat).append(ingredientLI);
   }
 $(document).ready(function() {
