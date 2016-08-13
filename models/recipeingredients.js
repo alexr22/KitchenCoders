@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Recipeingredient = sequelize.define('Recipeingredients', {
+  var Recipeingredients = sequelize.define('Recipeingredients', {
     amount: DataTypes.DECIMAL,
     unit: DataTypes.STRING,
     IngredientId: DataTypes.INTEGER,
@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
       }
-    }
+    },
+    freezeTableName: true
   });
-  return Recipeingredient;
+  return Recipeingredients;
 };

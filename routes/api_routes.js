@@ -74,11 +74,8 @@ router.post('/ingredient/add', function (req, res) {
 
 router.put('/ingredient/update/:id', function (req, res) {
 	var condition = 'id = ' + req.params.id;
-
 	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
 	.then (function () {
-
-
 		res.redirect('/ingredient');
 	});
 });
@@ -110,18 +107,18 @@ router.get('/recipe', function (req, res) {
 });
 
 
-// GET REQUEST TO URI - /findRecipe  
+// GET REQUEST TO URI - /findRecipe
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
 //
 router.get('/findRecipe', function (req, res) {
 	res.render('findRecipe');
-	
+
 });
 
 
-// GET REQUEST TO URI - /addRecipe  
+// GET REQUEST TO URI - /addRecipe
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
