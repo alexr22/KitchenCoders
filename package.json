@@ -2,6 +2,9 @@
   "name": "kitchencoders",
   "version": "1.0.0",
   "description": "recipe app for hungry coders",
+  "engines": {
+    "node": "6.3.0"
+  },
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.2",

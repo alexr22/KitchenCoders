@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "12148370",
+    "password": "",
     "database": "kitchencodersdb",
     "host": "localhost",
     "dialect": "mysql"
@@ -15,11 +15,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "use_env_variable": "DATABASE_URL"
+    "username": "qw55p4mwplxy780f",
+    "password": "w5u0cxl6ef3ftfxc",
+    "database": "xslf0c4oq0d0uaah",
+    "host": "gx97kbnhgjzh3efb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql"
   }
 }

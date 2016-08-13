@@ -153,10 +153,15 @@ function processOneRecipe(newRecipe){
         recipeIngredients =[];
 
         for (var i=0; i<extendedIngredients.length; i++) {
+
+            var cleanCategory = extendedIngredients[i].aisle;
+            cleanCategory = cleanCategory.replace(/\//, "or");
+            cleanCategory = cleanCategory.replace(/\?/, "misc");
+
             var newIngredient = {
                 name: extendedIngredients[i].name,
                 spoonID: extendedIngredients[i].id,
-                category: extendedIngredients[i].aisle
+                category: cleanCategory
             };
             var recipeIngredient = {
                 name: extendedIngredients[i].name,
@@ -179,10 +184,12 @@ function getInstructions(idTerm){
     .header("Accept", "application/json")
     .end(function (result) {
         var instructions = "";
-        var steps = result.body[0].steps;
-        for (var i=0; i<steps.length; i++) {
-            instructions += (steps[i].step + " ");
-            instructions += "<br>";
+        if (result.body.length >= 1) {
+            var steps = result.body[0].steps;
+            for (var i=0; i<steps.length; i++) {
+                instructions += (steps[i].step + " ");
+                instructions += "<br>";
+            }        
 
         }
         oneRecipeData.instructions = instructions;

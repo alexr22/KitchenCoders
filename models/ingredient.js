@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     category: DataTypes.STRING,
     spoonID: DataTypes.INTEGER,
-    inPantry: DataTypes.BOOLEAN
+    inPantry: {type: DataTypes.BOOLEAN,
+              defaultValue: false}
   }, {
     classMethods: {
       associate: function(models) {
