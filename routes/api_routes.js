@@ -23,6 +23,17 @@ var getRecipes = require('../getRecipes');
 //	  (3) go to the addRecipes page
 //    (4) go to the preferences page
 //
+// POST REQUEST TO URI  - /INGREDIENTS
+// provide ingredients information to display
+// see ingredient.handlebars
+// router.get('/ingredient', function (req, res) {
+// 	Ingredient.findAll()
+// 	.then (function(ingredients){
+// 		var hbsObject = {ingredients};
+// 		res.render('ingredient', hbsObject);
+// 	});
+// });
+// POST REQUEST TO URI  - /INGREDIENTS/ADD
 router.get('/', function (req, res) {
 	res.redirect('/home');
 	});
@@ -57,7 +68,7 @@ router.get('/ingredient', function (req, res) {
 // POST REQUEST TO URI  - /INGREDIENT/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
-router.post('/ingredient/add', function (req, res) {
+router.post('/ingredient/update', function (req, res) {
 	console.log("ingredient received", req.body);
 	Ingredient.create(
 		{name: req.body.name,
@@ -67,18 +78,22 @@ router.post('/ingredient/add', function (req, res) {
 			res.redirect('/ingredient');
 		});
 });
+router.get('/ingredient', function (req, res) {
 
-// POST REQUEST TO URI - /INGREDIENT/PANTRYUPDATE
+	Ingredient.findAll()
+	.then (function(ingredient){
+		console.log("INGREDIENT", ingredient);
+		var hbsObject = {ingredient};
+		res.render('ingredient', hbsObject);
+	});
+});
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
 router.put('/ingredient/update/:id', function (req, res) {
 	var condition = 'id = ' + req.params.id;
-
 	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
 	.then (function () {
-
-
 		res.redirect('/ingredient');
 	});
 });
@@ -110,18 +125,18 @@ router.get('/recipe', function (req, res) {
 });
 
 
-// GET REQUEST TO URI - /findRecipe  
+// GET REQUEST TO URI - /findRecipe
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
 //
 router.get('/findRecipe', function (req, res) {
 	res.render('findRecipe');
-	
+
 });
 
 
-// GET REQUEST TO URI - /addRecipe  
+// GET REQUEST TO URI - /addRecipe
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
