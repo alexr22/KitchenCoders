@@ -176,6 +176,18 @@ router.post('/admin/add', function (req, res) {
 
 });
 
+
+router.get('/findrecipe', function (req, res) {
+		res.render('findrecipe');
+	});
+
+
+
+router.get('/findrecipe/find', function (req, res) {
+		console.log("request for recipe received", req.body);
+
+
+});
 //******************************************************
 //  ROUTES FOR CONTACTUS
 //******************************************************

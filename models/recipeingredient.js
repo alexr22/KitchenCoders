@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Recipeingredient = sequelize.define('Recipeingredients', {
+  var Recipeingredients = sequelize.define('Recipeingredients', {
     amount: DataTypes.DECIMAL,
     unit: DataTypes.STRING,
     IngredientId: DataTypes.INTEGER,
@@ -12,5 +12,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Recipeingredient;
+  return Recipeingredients;
 };
