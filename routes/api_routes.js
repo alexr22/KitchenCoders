@@ -72,8 +72,7 @@ router.post('/ingredient/update', function (req, res) {
 	console.log("ingredient received", req.body);
 	Ingredient.create(
 		{name: req.body.name,
-		category: req.body.category,
-		inPantry: req.body.inStock})
+		category: req.body.category})
 		.then (function(){
 			res.redirect('/ingredient');
 		});
@@ -116,14 +115,16 @@ router.put('/ingredient/update/:id', function (req, res) {
 // to query database for matching recipes
 // add addition limitation that all ingredients must be inStock
 //
-router.get('/recipe', function (req, res) {
-	Recipe.findAll()
+router.post('/findRecipe/find', function (req, res) {
+	console.log(req.body);
+	Recipe.findAll({
+	where: {vegan : req.body.vegan}})
 	.then (function(recipe){
 		var hbsObject = {recipe};
-		res.render('recipe', hbsObject);
+		res.render('findRecipe', hbsObject);
 	});
-});
 
+});
 
 // GET REQUEST TO URI - /findRecipe
 // user presented with page where she can
@@ -132,7 +133,6 @@ router.get('/recipe', function (req, res) {
 //
 router.get('/findRecipe', function (req, res) {
 	res.render('findRecipe');
-
 });
 
 
