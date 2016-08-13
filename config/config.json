@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "12148370",
     "database": "kitchencodersdb",
     "host": "localhost",
     "dialect": "mysql"
