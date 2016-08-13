@@ -23,17 +23,6 @@ var getRecipes = require('../getRecipes');
 //	  (3) go to the addRecipes page
 //    (4) go to the preferences page
 //
-// POST REQUEST TO URI  - /INGREDIENTS
-// provide ingredients information to display
-// see ingredient.handlebars
-// router.get('/ingredient', function (req, res) {
-// 	Ingredient.findAll()
-// 	.then (function(ingredients){
-// 		var hbsObject = {ingredients};
-// 		res.render('ingredient', hbsObject);
-// 	});
-// });
-// POST REQUEST TO URI  - /INGREDIENTS/ADD
 router.get('/', function (req, res) {
 	res.redirect('/home');
 	});
@@ -65,10 +54,11 @@ router.get('/ingredient', function (req, res) {
 	});
 });
 
+
 // POST REQUEST TO URI  - /INGREDIENT/ADD
 // receives new ingredient entered by user
 // and updates database with the new ingredient
-router.post('/ingredient/update', function (req, res) {
+router.post('/ingredient/add', function (req, res) {
 	console.log("ingredient received", req.body);
 	Ingredient.create(
 		{name: req.body.name,
@@ -77,22 +67,18 @@ router.post('/ingredient/update', function (req, res) {
 			res.redirect('/ingredient');
 		});
 });
-router.get('/ingredient', function (req, res) {
 
-	Ingredient.findAll()
-	.then (function(ingredient){
-		console.log("INGREDIENT", ingredient);
-		var hbsObject = {ingredient};
-		res.render('ingredient', hbsObject);
-	});
-});
+// POST REQUEST TO URI - /INGREDIENT/PANTRYUPDATE
 // user identifies an ingredient and a change to the inStock status
 // we update the database with that information
 
 router.put('/ingredient/update/:id', function (req, res) {
 	var condition = 'id = ' + req.params.id;
+
 	Ingredient.update({inPantry: req.body.inPantry }, {where: {id: req.params.id}})
 	.then (function () {
+
+
 		res.redirect('/ingredient');
 	});
 });
@@ -126,17 +112,48 @@ router.post('/findRecipe/find', function (req, res) {
 
 });
 
-// GET REQUEST TO URI - /findRecipe
+
+// GET REQUEST TO URI - /findRecipe  
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
 //
 router.get('/findRecipe', function (req, res) {
+	console.log("at findrecipe route handler");
 	res.render('findRecipe');
+
 });
 
+router.post('/findRecipe', function (req, res) {
+		var condition = 'id = ' + req.params.id;
 
-// GET REQUEST TO URI - /addRecipe
+		console.log("request for recipe received", req.body);
+		Recipe.findAll({
+			where: {
+				vegan: req.body.vegan,
+				vegetarian: req.body.vegetarian,
+				glutenFree: req.body.gluten
+			}
+		})
+		.then (function(recipe) {
+			//console.log(JSON.stringify.recipe);
+			var hbsObject = {recipe};
+			res.render('findRecipe', hbsObject);
+			console.log("#############");
+			console.log(hbsObject);
+
+		})
+		// .then (function() {
+		// //console.log("recipe found", recipe);
+		// })
+	// res.redirect('/home');
+
+});
+
+// router.get('/findRecipe3', function(req, res) {
+// 	res.redirect('findRecipe')
+// });
+// GET REQUEST TO URI - /addRecipe  
 // user presented with page where she can
 // query database for matching recipes
 // add addition limitation that all ingredients must be inStock
@@ -176,6 +193,7 @@ router.get('/addRecipe', function (req, res) {
 // then call getRecipes to load database with results
 //
 //
+
 router.get('/admin', function (req, res) {
 		res.render('admin');
 	});
@@ -187,6 +205,9 @@ router.post('/admin/add', function (req, res) {
 	res.redirect('/home');
 
 });
+
+
+
 
 //******************************************************
 //  ROUTES FOR CONTACTUS

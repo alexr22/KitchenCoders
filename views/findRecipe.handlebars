@@ -20,6 +20,17 @@ margin-top: 15px;
 
 label {margin-top: 15px}
 
+#recipeTitle {
+  color: red;
+}
+
+#recipePic {
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+
+  height: 250px;
+}
 
 </style>
 
@@ -28,10 +39,12 @@ label {margin-top: 15px}
     <div class="containerTitle">
       <h2>Find a Recipe!</h2>
     </div>
-    <form role="form" class="create-update-form" id="recipeForm" action="findRecipe/find" method="POST">
-      <div class="form-group">
-        <h4 id="question1"> Would you like anything particular in your meal?</h4><br><input type="text" id="searchIngredient" name="searchTerm"><br>
 
+    <form class="create-update-form" id="recipeForm" action="findRecipe" method="POST">
+      <div>
+        <h4 id="question1"> Would you like anything particular in your meal?</h4><br>
+        <input type="text" id="searchIngredient" name="searchTerm"><br>
+          
           <label for="vegan">Vegan?</label><br>
           <input type="radio" name="vegan" value="1">Yes
           <input type="radio" name="vegan" value="0">No<br>
@@ -49,30 +62,21 @@ label {margin-top: 15px}
     </form>
   </div>
   <div class="container col-md-6">
-    <h2>Your ingredients</h2>
-    {{#each ingredient}}
-        {{#if this.inPantry}}
-            <ul>
-                <div class="pantryList sameLine">
-                    <span>{{this.id.recipeTitle}}.&nbsp;</span>
-                </div>
-            </ul>
-        {{/if}}
-    {{/each}}
+  <h2>Enter your preferences and submit to find a recipe!</h2>
+
+
+   {{#each recipe}}
+    <h3>Recipe: </h3>
+    <h4 id="recipeTitle">{{title}}</h4>
+    <h4>Instructions: </h4>
+       {{this.instructions}}<br>
+    <img src={{image}} id="recipePic">
+   {{/each}}
+
   </div>
 </div>
-<div class="container col-md-6">
-<h2>Enter your preferences and submit to find a recipe!</h2>
-  {{#each recipe}}
-    {{#if this.makeIt}}
-      <ul>
-        <div class="recipeList sameLine">
-          <span>{{this.id.recipeTitle}}.&nbsp;</span>
-        </div>
-      </ul>
-    {{/if}}
-  {{/each}}
-</div>
+
+
 
 
 {{!--blog start============================ --}}
